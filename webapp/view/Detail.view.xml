@@ -1,0 +1,258 @@
+<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Detail" height="100%"
+	xmlns:uxap="sap.uxap"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:upload="sap.m.upload">
+	<uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false" showFooter="true">
+		<uxap:headerTitle>
+			<uxap:ObjectPageDynamicHeaderTitle>
+				<uxap:expandedHeading>
+					<Title text="{application>Matnr} - {application>Maktx} - {application>ProcessTypeText} Talebi" wrapping="true" class="sapUiSmallMarginEnd" visible="{= ${application>Matnr} !== 'TEMP_MATE'}" />
+					<!-- <Title text="{application>Matnr}" wrapping="true" class="sapUiSmallMarginEnd" /> -->
+				</uxap:expandedHeading>
+
+				<uxap:snappedHeading>
+					<FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+						<FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">
+							<!-- <f:Avatar src="../../../../../../../{products>ProductPicUrl}" displaySize="S" displayShape="Square" /> -->
+							<Title text="{application>Matnr} {products>Maktx} " title="" titleStyle="H1" wrapping="true" class="sapUiTinyMarginEnd" visible="{= ${application>Matnr} !== 'TEMP_MATE'}" />
+						</FlexBox>
+					</FlexBox>
+				</uxap:snappedHeading>
+
+				<uxap:navigationActions>
+					<OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="Enter Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }" />
+					<OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="Exit Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
+					<OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close middle column" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }" />
+				</uxap:navigationActions>
+				<!-- 
+		<uxap:actions>
+			<Button text="Edit" type="Emphasized" press="toggleAreaPriority" />
+			<Button text="Delete" type="Transparent" />
+			<Button text="Copy" type="Transparent" />
+			<Button text="Toggle Footer" type="Transparent" press="onToggleFooter" />
+			<Button icon="sap-icon://action" type="Transparent" />
+		</uxap:actions> -->
+
+			</uxap:ObjectPageDynamicHeaderTitle>
+		</uxap:headerTitle>
+		<uxap:ObjectPageSection title="Malzeme verileri">
+
+
+			<uxap:subSections>
+				<uxap:ObjectPageSubSection title="Temel Veriler" visible="{application>UiConfig/BasisViewActive}">
+					<uxap:blocks>
+						<VBox>
+							<Text text="test"></Text>
+							<Panel expandable="true" headerText="Hakediş 1 Giriş No: Önce DUMMY kaydedince (ESSR-LBLN1) 1'li numara" width="auto" class="sapUiResponsiveMargin">
+								<Panel expandable="true" width="auto" class="sapUiResponsiveMargin">
+									<headerToolbar>
+										<OverflowToolbar style="Clear">
+											<Title text="Hakediş 1 Fatura Bilgileri" />
+											<ToolbarSpacer />
+											<Button icon="sap-icon://settings" />
+											<Button icon="sap-icon://drop-down-list" />
+										</OverflowToolbar>
+									</headerToolbar>
+									<content>
+										<VBox>
+
+										<form:SimpleForm maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+											<form:content>
+				
+												<core:Title text="" />
+				
+												<Label text="Fatura Tarihi" />
+												<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>MaterialKind}" width="5rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
+				
+												<Label text="Fatura No" />
+												<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Mtart}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" maxLength="{= parseInt(${mainModel>/#DataModel/Mtart/@maxLength}) }" required="true" />
+				
+												<Label text="Fatura Tutarı" />
+												<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Matkl}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
+				
+												<Label text="Para Birimi" />
+												<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>Maktx}" width="20rem" required="true" class="InputMaktx" />
+				
+												<core:Title text="" />
+				
+												<Label text="Ödeme Vadesi" />
+												<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Meins}" width="5rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
+				
+												<Label text="Açıklama" />
+												<Input editable="{=  ${application>UiConfig/BasisViewEditable}  || ${application>UiConfig/ExtwgEditable}  }" value="{application>Extwg}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" />
+				
+												<Label text="Personel No" />
+												<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>VendorChoice}" width="15rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" />
+				
+												<Label text="Personel adı soyadı" />
+												<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>StorageText}" width="20rem" />
+											
+											    <Label text="Operasyon tanımı" />
+												<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>StorageText}" width="20rem" />
+				
+				
+											</form:content>
+										</form:SimpleForm>
+									</VBox>
+									</content>
+
+
+									
+								</Panel>
+								<Panel id="expandablePanel" expandable="true" expand="onExpand" width="auto" class="sapUiResponsiveMargin">
+									<headerToolbar>
+										<OverflowToolbar active="true" press="onOverflowToolbarPress">
+											<Title text="Hakediş 1 Detay Bilgiler" />
+											<ToolbarSpacer />
+											<Button icon="sap-icon://settings" />
+											<Button icon="sap-icon://drop-down-list" />
+										</OverflowToolbar>
+									</headerToolbar>
+									<content>
+										
+									</content>
+
+									<Panel expandable="true" width="auto" class="sapUiResponsiveMargin">
+										<headerToolbar>
+											<OverflowToolbar active="true" press="onOverflowToolbarPress">
+												<Title text="Kalem-1 154 KV DEPLASE İŞLERİ TOPLAMI" />
+												<ToolbarSpacer />
+												<Button icon="sap-icon://settings" />
+												<Button icon="sap-icon://drop-down-list" />
+											</OverflowToolbar>
+										</headerToolbar>
+										<content>
+											<VBox>
+
+												<form:SimpleForm maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+													<form:content>
+						
+														<core:Title text="" />
+						
+														<Label text="Fatura Kalem Tutarı" />
+														<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>MaterialKind}" width="5rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
+						
+														<Label text="Şuana kadar yapılan hakediş" />
+														<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Mtart}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" maxLength="{= parseInt(${mainModel>/#DataModel/Mtart/@maxLength}) }" required="true" />
+						
+														<Label text="Sözleşme Birim Fiyatı" />
+														<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Matkl}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
+						
+														<Label text="Sözleşme Para Birimi" />
+														<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>Maktx}" width="20rem" required="true" class="InputMaktx" />
+						
+														
+						
+														<Label text="Gerçekleşen Birim Fiyat" />
+														<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Meins}" width="5rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
+						
+														<Label text="Gerçekleşen İş Miktarı" />
+														<Input editable="{=  ${application>UiConfig/BasisViewEditable}  || ${application>UiConfig/ExtwgEditable}  }" value="{application>Extwg}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" />
+													
+														<Label text="Gerçekleşen İşin Birimi" />
+														<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>StorageText}" width="20rem" />
+						
+															<core:Title text="" />
+													</form:content>
+												</form:SimpleForm>
+											</VBox>
+										</content>
+									</Panel>
+								</Panel>
+								<Panel expandable="true" width="auto" class="sapUiResponsiveMargin">
+									<headerToolbar>
+										<OverflowToolbar active="true" press="onOverflowToolbarPress">
+											<Title text="Hakediş 1 Açıklamalar" />
+											<ToolbarSpacer />
+											<Button icon="sap-icon://settings" />
+											<Button icon="sap-icon://drop-down-list" />
+										</OverflowToolbar>
+									</headerToolbar>
+									<content>
+										<TextArea value="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" 
+										rows="4" width="60em"/>
+									</content>
+								</Panel>
+							</Panel>
+						</VBox>
+
+					</uxap:blocks>
+				</uxap:ObjectPageSubSection>
+			</uxap:subSections>
+		</uxap:ObjectPageSection>
+	</uxap:ObjectPageLayout>
+
+	<!-- <uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false" showFooter="true">
+		<uxap:headerTitle>
+			<uxap:ObjectPageDynamicHeaderTitle>
+				<uxap:expandedHeading>
+					<Title text="{application>Matnr} - {application>Maktx} - {application>ProcessTypeText} Talebi" wrapping="true" class="sapUiSmallMarginEnd" visible="{= ${application>Matnr} !== 'TEMP_MATE'}"/>
+					
+				</uxap:expandedHeading>
+
+				<uxap:snappedHeading>
+					<FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
+						<FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">
+							
+							<Title text="{application>Matnr} {products>Maktx} " title="" titleStyle="H1" wrapping="true" class="sapUiTinyMarginEnd" visible="{= ${application>Matnr} !== 'TEMP_MATE'}"/>
+						</FlexBox>
+					</FlexBox>
+				</uxap:snappedHeading>
+
+				<uxap:navigationActions>
+					<OverflowToolbarButton type="Transparent" icon="sap-icon://full-screen" press="handleFullScreen" id="enterFullScreenBtn" tooltip="Enter Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/fullScreen} !== null }" />
+					<OverflowToolbarButton type="Transparent" icon="sap-icon://exit-full-screen" press="handleExitFullScreen" id="exitFullScreenBtn" tooltip="Exit Full Screen Mode" visible="{= ${/actionButtonsInfo/midColumn/exitFullScreen} !== null }" />
+					<OverflowToolbarButton type="Transparent" icon="sap-icon://decline" press="handleClose" tooltip="Close middle column" visible="{= ${/actionButtonsInfo/midColumn/closeColumn} !== null }" />
+				</uxap:navigationActions>
+
+
+			</uxap:ObjectPageDynamicHeaderTitle>
+		</uxap:headerTitle>
+
+		<uxap:headerContent>
+			<FlexBox wrap="Wrap" fitContainer="true" alignItems="Stretch">
+				
+				<VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+					<Label text="Yaratma Tarihi" />
+					<Text text="{ path : 'application>CreateDate' , type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" />
+				</VBox>
+				<VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+					<Label text="Yaratma Saati" />
+
+					<Text text="{ path : 'application>CreateTime' , type: 'sap.ui.model.odata.type.Time', formatOptions: { source : 'HH:MM:SS'  } }" />
+					
+				</VBox>
+				<VBox justifyContent="Center" class="sapUiSmallMarginEnd">
+					<Label text="Yaratan" />
+					<Text text="{application>CreateUname}" />
+				</VBox>
+			</FlexBox>
+
+
+		</uxap:headerContent>
+
+		<uxap:sections></uxap:sections>
+		<uxap:footer>
+			<OverflowToolbar visible="{= ${application>UiConfig/SendActive} === true ||
+				${application>UiConfig/ApproveActive} === true ||
+				${application>UiConfig/RejectActive} === true ||
+				${application>UiConfig/ReviewActive} === true 
+				  ? true : false }">
+				<ToolbarSpacer />
+
+
+				<Button type="Ghost" text="Gönder" fieldGroupIds="Send" visible="{application>UiConfig/SendActive}" press="onPressAction"></Button>
+				<Button type="Accept" text="Onayla" fieldGroupIds="Approve" visible="{application>UiConfig/ApproveActive}" press="onPressAction"></Button>
+				<Button type="Reject" text="Reddet" fieldGroupIds="Reject" visible="{application>UiConfig/RejectActive}" press="onPressAction"></Button>
+				<Button type="Attention" text="Gözden Geçir" fieldGroupIds="Review" visible="{application>UiConfig/ReviewActive}" press="onPressAction"></Button>
+			</OverflowToolbar>
+		</uxap:footer>
+	</uxap:ObjectPageLayout> -->
+
+
+</mvc:View>

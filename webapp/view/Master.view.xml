@@ -1,0 +1,56 @@
+<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Master" height="100%" xmlns="sap.m" xmlns:f="sap.f" xmlns:mvc="sap.ui.core.mvc">
+	<f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
+		<!-- DynamicPage Title -->
+		<!-- <f:title>
+			<f:DynamicPageTitle>
+				<f:heading>
+					<Title text="Malzeme Anaveri İşleme Süreci" />
+				</f:heading>
+			</f:DynamicPageTitle>
+		</f:title> -->
+
+		<!-- DynamicPage Content -->
+		<f:content>
+			<Table id="masterTable" mode="SingleSelectMaster" itemPress="onListItemPress" inset="false" items="{
+					path: 'application>/DataModel/results'
+				}" class="sapFDynamicPageAlignContent" width="auto" noDataText="Kayıt bulunamadı">
+				<headerToolbar>
+					<OverflowToolbar>
+						<ToolbarSpacer />
+						<SearchField search="onSearch" width="17.5rem" />
+						<!-- <OverflowToolbarButton icon="sap-icon://sort" type="Transparent" press="onSort" /> -->
+						<Button text="Yeni Malzeme" icon="sap-icon://add" type="Transparent" press="onAdd" visible="{application>/UiModel/CreateActive}" />
+					</OverflowToolbar>
+				</headerToolbar>
+				<columns>
+					<Column>
+						<Text text="Malzeme / Talep No" />
+					</Column>
+
+					<Column>
+						<Text text="Kısa Metni" />
+					</Column>
+					<Column visible="{= ${application>/App} === 'manageRelease' }">
+						<Text text="Talep tipi" />
+					</Column>
+					<Column hAlign="End">
+						<Text text="Durum" />
+					</Column>
+				</columns>
+				<items>
+					<ColumnListItem type="Navigation">
+						<cells>
+							<ObjectIdentifier text="{= ${application>RequestNo} === 'TEMP_REQU' ? 'Yeni talep' : ${application>RequestNo} === 'NONE_REQU' ?  'Talep yok' : ${application>RequestNo} }" title="{= ${application>Matnr} === 'TEMP_MATE' ? 'Yeni Malzeme' : ${application>Matnr} }" />
+
+							<ObjectIdentifier title="{ path : 'application>Maktx' }" />
+							<ObjectStatus visible="{= ${application>/App} === 'manageRelease' }" text="{application>ProcessTypeText}" state="Information" />
+							<ObjectStatus text="{application>StatusText}" state="{application>StatusState}" />
+						</cells>
+					</ColumnListItem>
+				</items>
+			</Table>
+		</f:content>
+
+		<!-- DynamicPage Footer -->
+	</f:DynamicPage>
+</mvc:View>

@@ -1,0 +1,9 @@
+/* Enter your custom styles here */
+
+.sapUxAPBlockContainer {
+    padding-top: 0px !important;
+}
+
+.sapMInput.InputMaktx .sapMInputBaseInner {
+    text-transform: uppercase;
+}

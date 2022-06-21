@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Malzeme anaveri yönetimi</title>
+		<script
+				id="sap-ui-bootstrap"
+				src="https://ui5.sap.com/1.84.7/resources/sap-ui-core.js"
+				data-sap-ui-theme="sap_fiori_3"
+				data-sap-ui-libs="sap.m"
+				data-sap-ui-bindingSyntax="complex"
+				data-sap-ui-compatVersion="edge"
+				data-sap-ui-resourceroots='{
+					"gubretas.mm.hay": "./"
+				}'>
+		</script>
+
+		<script>
+			sap.ui.getCore().attachInit(function () {
+				sap.ui.require([
+					"sap/ui/core/ComponentContainer"
+				], function (ComponentContainer) {
+
+					new ComponentContainer({
+						name : 'gubretas.mm.hay',
+						height : "100%",
+						settings : {
+							id : "gubretas.mm.hay"
+						}
+					}).placeAt('content');
+				});
+			});
+		</script>
+
+	</head>
+	<body class="sapUiBody sapUiSizeCompact" id="content">
+	</body>
+</html>

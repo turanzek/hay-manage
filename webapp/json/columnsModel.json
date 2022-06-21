@@ -1,0 +1,17 @@
+{
+  "cols": [
+    {
+      "label": "Anahtar",
+      "template": "Key",
+      "width": "12rem"
+    },
+    {
+      "label": "Değer 1",
+      "template": "Value1"
+    },
+    {
+      "label": "Değer 2",
+      "template": "Value2"
+    }
+  ]
+}

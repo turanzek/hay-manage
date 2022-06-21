@@ -1,0 +1,151 @@
+{
+  "_version": "1.12.0",
+  "sap.app": {
+    "id": "gubretas.mm.hay",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "applicationVersion": {
+      "version": "1.0.0"
+    },
+    "resources": "resources.json",
+    "dataSources": {
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/ZMM_MAY_MANAGE_SRV/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      },
+      "valueService": {
+        "uri": "/sap/opu/odata/sap/ZABAP_VALUE_HELPER_SRV/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      }
+    },
+    "sourceTemplate": {
+      "id": "sap.ui.ui5-template-plugin.2masterdetail",
+      "version": "1.71.26"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "sap-icon://detail-view",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "rootView": {
+      "viewName": "gubretas.mm.hay.view.FlexibleColumnLayout",
+      "type": "XML",
+      "async": true,
+      "id": "fcl"
+    },
+    "services" : {
+      "ShellUIService": {
+          "factoryName": "sap.ushell.ui5service.ShellUIService"
+      }
+   },
+    "dependencies": {
+      "minUI5Version": "1.84.7",
+      "libs": {
+        "sap.ui.core": {},
+        "sap.m": {},
+        "sap.f": {},
+        "sap.uxap": {}
+      }
+    },
+    "config": {
+      "fullWidth": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "gubretas.mm.hay.i18n.i18n"
+        }
+      },
+      "mainModel": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "dataSource": "mainService",
+        "preload": true
+      },
+      "valueModel": {
+        "type": "sap.ui.model.odata.v2.ODataModel",
+        "dataSource": "valueService",
+        "preload": true
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.f.routing.Router",
+        "type": "View",
+        "viewType": "XML",
+        "path": "gubretas.mm.hay.view",
+        "controlId": "fcl",
+        "transition": "slide",
+        "bypassed": {},
+        "async": true
+      },
+      "routes": [
+        {
+          "pattern": "other",
+          "name": "other",
+          "target": "other",
+          "layout": "EndColumnFullScreen"
+        },
+        {
+          "pattern": ":layout:",
+          "name": "master",
+          "target": ["master"]
+        },
+        {
+          "pattern": "detail/{itemNo}/{layout}",
+          "name": "detail",
+          "target": ["master", "detail"]
+        },
+        {
+          "pattern": "detailDetail/{product}/{supplier}/{layout}",
+          "name": "detailDetail",
+          "target": ["master", "detail", "detailDetail"]
+        }
+      ],
+      "targets": {
+        "master": {
+          "name": "Master",
+          "controlAggregation": "beginColumnPages"
+        },
+        "detail": {
+          "name": "Detail",
+          "controlAggregation": "midColumnPages"
+        },
+        "other": {
+          "name": "Other",
+          "controlAggregation": "endColumnPages"
+        }
+      }
+    }
+  }
+}
