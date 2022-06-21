@@ -148,7 +148,7 @@
 						
 														
 						
-														<Label text="Gerçekleşen Birim Fiyat" />
+														<Label text="Gerçekleşen" />
 														<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Meins}" width="5rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
 						
 														<Label text="Gerçekleşen İş Miktarı" />
