@@ -46,52 +46,13 @@ sap.ui.define([
 			this._initApplication();
 		},
 		_initApplication: function () {
-			var hashObject = new sap.ui.core.routing.HashChanger();
-			var hash = hashObject.getHash();
-
-			switch (true) {
-				case hash.includes("createRequest"):
-					var app = "createRequest";
-					var title = "Malzeme Yaratma Talebi";
-					break;
-				case hash.includes("changeRequest"):
-					app = "changeRequest";
-					title = "Malzeme Değiştirme Talebi";
-					break;
-				case hash.includes("expandRequest"):
-					app = "expandRequest";
-					title = "Malzeme Genişletme Talebi";
-					break;
-				case hash.includes("deleteRequest"):
-					app = "deleteRequest";
-					title = "Malzeme Silme İşareti Talebi";
-					break;
-				case hash.includes("manageRelease"):
-					app = "manageRelease";
-					title = "Malzeme Anaveri Yönetim Süreci";
-					break;
-
-				default:
-					break;
-			}
-
-
-			this.getService("ShellUIService").then(
-				function (oService) {
-					oService.setTitle(title);
-				}.bind(this),
-				function (oError) {
-					jQuery.sap.log.error("Cannot get ShellUIService", oError);
-				}
-			);
-
-			if (location.href.includes("localhost")) {
-				app = "createRequest";
-			}
+			
 			var oModel = new JSONModel();
 			this.setModel(oModel);
 
-
+			var app = "createRequest";
+			var title = "Malzeme Yaratma Talebi";
+			
 			var model = new JSONModel();
 			this.setModel(model, "application");
 
@@ -104,12 +65,14 @@ sap.ui.define([
 				async: true,
 				filters: filters,
 				urlParameters: {
-					"$expand": ["DataModel", "DataModel/Plants", "DataModel/Storages", "DataModel/SupplierCodes", "DataModel/Equipments", "DataModel/Valuations", "DataModel/ApproveSteps", "DataModel/Actions", "DataModel/ActiveValues", "DataModel/Files", "DataModel/ActiveValues/Plants", "DataModel/ActiveValues/Storages", "DataModel/ActiveValues/SupplierCodes", "DataModel/ActiveValues/Valuations", "DataModel/ActiveValues/Equipments"]
+					"$expand": ["DataModel", "DataModel/ApproveSteps", "DataModel/Item","Item/ServiceEntry","Item/ServiceEntryItem","ServiceEntry/Files","ServiceEntry/ServiceEntryItem"]
 				},
 				success: function (data) {
 
 					var applicationModel = this.getModel("application");
-					applicationModel.setData(data.results[0]);
+					var result = data.results[0]
+					result.listCount = result.DataModel.results.length;
+					applicationModel.setData(result);
 					busyDialog.close();
 
 				}.bind(this),

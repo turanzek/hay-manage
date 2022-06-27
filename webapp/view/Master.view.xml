@@ -1,25 +1,32 @@
-<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Master" height="100%" xmlns="sap.m" xmlns:f="sap.f" xmlns:mvc="sap.ui.core.mvc">
+<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Master" height="100%"
+	xmlns="sap.m"
+	xmlns:f="sap.f"
+	xmlns:mvc="sap.ui.core.mvc">
 	<f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
-		<!-- DynamicPage Title -->
-		<!-- <f:title>
+
+		<f:title>
 			<f:DynamicPageTitle>
 				<f:heading>
-					<Title text="Malzeme Anaveri İşleme Süreci" />
+					<Title id="masterHeaderTitle" text="{
+					parts: [
+						'i18n>masterTitleCount',
+						'application>/listCount'
+					],
+					formatter: 'jQuery.sap.formatMessage'
+			}"/>
 				</f:heading>
 			</f:DynamicPageTitle>
-		</f:title> -->
-
-		<!-- DynamicPage Content -->
+		</f:title>
+		<!-- text="{application>/listCount}"/> -->
 		<f:content>
 			<Table id="masterTable" mode="SingleSelectMaster" itemPress="onListItemPress" inset="false" items="{
 					path: 'application>/DataModel/results'
 				}" class="sapFDynamicPageAlignContent" width="auto" noDataText="Kayıt bulunamadı">
 				<headerToolbar>
 					<OverflowToolbar>
-						<ToolbarSpacer />
 						<SearchField search="onSearch" width="17.5rem" />
-						<!-- <OverflowToolbarButton icon="sap-icon://sort" type="Transparent" press="onSort" /> -->
-						<Button text="Yeni Malzeme" icon="sap-icon://add" type="Transparent" press="onAdd" visible="{application>/UiModel/CreateActive}" />
+						<!-- <OverflowToolbarButton icon="sap-icon://sort" type="Transparent" press="onSort" /> 
+						<Button text="Yeni Malzeme" icon="sap-icon://add" type="Transparent" press="onAdd" visible="{application>/UiModel/CreateActive}" />-->
 					</OverflowToolbar>
 				</headerToolbar>
 				<columns>

@@ -3,10 +3,10 @@
 	xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m"
 	xmlns:form="sap.ui.layout.form"
-	xmlns:l="sap.ui.layout"
 	xmlns:f="sap.f"
 	xmlns:core="sap.ui.core"
-	xmlns:upload="sap.m.upload">
+	xmlns:t="sap.ui.table"
+	xmlns:u="sap.ui.unified">
 	<uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false" showFooter="true">
 		<uxap:headerTitle>
 			<uxap:ObjectPageDynamicHeaderTitle>
@@ -61,50 +61,50 @@
 									<content>
 										<VBox>
 
-										<form:SimpleForm maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
-											<form:content>
-				
-												<core:Title text="" />
-				
-												<Label text="Fatura Tarihi" />
-												<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>MaterialKind}" width="5rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
-				
-												<Label text="Fatura No" />
-												<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Mtart}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" maxLength="{= parseInt(${mainModel>/#DataModel/Mtart/@maxLength}) }" required="true" />
-				
-												<Label text="Fatura Tutarı" />
-												<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Matkl}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
-				
-												<Label text="Para Birimi" />
-												<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>Maktx}" width="20rem" required="true" class="InputMaktx" />
-				
-												<core:Title text="" />
-				
-												<Label text="Ödeme Vadesi" />
-												<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Meins}" width="5rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
-				
-												<Label text="Açıklama" />
-												<Input editable="{=  ${application>UiConfig/BasisViewEditable}  || ${application>UiConfig/ExtwgEditable}  }" value="{application>Extwg}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" />
-				
-												<Label text="Personel No" />
-												<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>VendorChoice}" width="15rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" />
-				
-												<Label text="Personel adı soyadı" />
-												<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>StorageText}" width="20rem" />
-											
-											    <Label text="Operasyon tanımı" />
-												<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>StorageText}" width="20rem" />
-				
-				
-											</form:content>
-										</form:SimpleForm>
-									</VBox>
+											<form:SimpleForm maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+												<form:content>
+
+													<core:Title text="" />
+
+													<Label text="Fatura Tarihi" />
+													<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>MaterialKind}" width="5rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
+
+													<Label text="Fatura No" />
+													<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Mtart}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" maxLength="{= parseInt(${mainModel>/#DataModel/Mtart/@maxLength}) }" required="true" />
+
+													<Label text="Fatura Tutarı" />
+													<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Matkl}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
+
+													<Label text="Para Birimi" />
+													<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>Maktx}" width="20rem" required="true" class="InputMaktx" />
+
+													<core:Title text="" />
+
+													<Label text="Ödeme Vadesi" />
+													<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Meins}" width="5rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
+
+													<Label text="Açıklama" />
+													<Input editable="{=  ${application>UiConfig/BasisViewEditable}  || ${application>UiConfig/ExtwgEditable}  }" value="{application>Extwg}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" />
+
+													<Label text="Personel No" />
+													<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>VendorChoice}" width="15rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" />
+
+													<Label text="Personel adı soyadı" />
+													<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>StorageText}" width="20rem" />
+
+													<Label text="Operasyon tanımı" />
+													<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>StorageText}" width="20rem" />
+
+
+												</form:content>
+											</form:SimpleForm>
+										</VBox>
 									</content>
 
 
-									
+
 								</Panel>
-								<Panel id="expandablePanel" expandable="true" expand="onExpand" width="auto" class="sapUiResponsiveMargin">
+				<!-- 				<Panel id="expandablePanel" expandable="true" expand="onExpand" width="auto" class="sapUiResponsiveMargin">
 									<headerToolbar>
 										<OverflowToolbar active="true" press="onOverflowToolbarPress">
 											<Title text="Hakediş 1 Detay Bilgiler" />
@@ -114,8 +114,8 @@
 										</OverflowToolbar>
 									</headerToolbar>
 									<content>
-										
-									</content>
+
+									</content> -->
 
 									<Panel expandable="true" width="auto" class="sapUiResponsiveMargin">
 										<headerToolbar>
@@ -128,8 +128,89 @@
 										</headerToolbar>
 										<content>
 											<VBox>
+<!-- 
+												<Label text="Selection Mode" labelFor="select1"/>
+												<Select id="select1" width="100%" items="{selectionmodel>/selectionitems}" selectedKey="MultiToggle" change="onSelectionModeChange">
+													<core:Item key="{selectionmodel>key}" text="{selectionmodel>text}"/>
+												</Select>
 
-												<form:SimpleForm maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+												<Label text="Selection Behavior" labelFor="select2"/>
+												<Select id="select2" width="100%" items="{selectionmodel>/behavioritems}" selectedKey="RowSelector" change="onBehaviourModeChange">
+													<core:Item key="{selectionmodel>key}" text="{selectionmodel>text}"/>
+												</Select> -->
+
+												<t:Table id="table1" rows="{/ProductCollection}" selectionMode="MultiToggle" visibleRowCount="7" ariaLabelledBy="title">
+													<!-- <extension>
+														<OverflowToolbar style="Clear">
+															<Title id="title" text="Products"/>
+															<ToolbarSpacer/>
+															<Button icon="sap-icon://activities" tooltip="show indices of selected items" press="getSelectedIndices"/>
+															<Button icon="sap-icon://activity-items" tooltip="show context of latest selection item" press="getContextByIndex"/>
+															<Button icon="sap-icon://decline" tooltip="clear selection" press="clearSelection"/>
+															<Switch state="true" customTextOn="on" customTextOff="off" tooltip="enable select all items" change="onSwitchChange"/>
+														</OverflowToolbar>
+													</extension> -->
+
+													<t:columns>
+														<t:Column width="11rem">
+															<Label text="Fatura Kalem Tutarı" />
+															<t:template>
+																<Text text="{Name}" wrapping="false" />
+															</t:template>
+														</t:Column>
+														<t:Column width="11rem">
+															<Label text="Şuana kadar yapılan hakediş" />
+															<t:template>
+																<Input value="{ProductId}"/>
+															</t:template>
+														</t:Column>
+														<t:Column width="6rem" hAlign="End">
+															<Label text="Sözleşme Birim Fiyatı" />
+															<t:template>
+																<Label text="{Quantity}" />
+															</t:template>
+														</t:Column>
+														<t:Column width="9rem">
+															<Label text="Sözleşme Para Birimi" />
+															<t:template>
+																<ObjectStatus text="{Status}" state="{
+								path: 'Available',
+								formatter: '.formatAvailableToObjectState'
+							}"/>
+															</t:template>
+														</t:Column>
+														<t:Column width="9rem">
+															<Label text="Gerçekleşen Birim Fiyat" />
+															<t:template>
+																<u:Currency value="{Price}" currency="{CurrencyCode}"/>
+															</t:template>
+														</t:Column>
+														<t:Column width="12rem">
+															<Label text="Gerçekleşen İş Miktarı" />
+															<t:template>
+																<ComboBox value="{SupplierName}" items="{/Suppliers}">
+																	<core:Item text="{Name}"/>
+																</ComboBox>
+															</t:template>
+														</t:Column>
+														<t:Column width="9rem">
+															<Label text="Gerçekleşen İşin Birimi" />
+															<t:template>
+																<Link text="Show Image" href="{ProductPicUrl}" target="_blank"/>
+															</t:template>
+														</t:Column>
+														<t:Column width="9rem">
+															<Label text="Details" />
+															<t:template>
+																<Button text="Show Details" press="handleDetailsPress"/>
+															</t:template>
+														</t:Column>
+														
+													</t:columns>
+												</t:Table>
+
+
+												<!-- <form:SimpleForm maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
 													<form:content>
 						
 														<core:Title text="" />
@@ -159,11 +240,11 @@
 						
 															<core:Title text="" />
 													</form:content>
-												</form:SimpleForm>
+												</form:SimpleForm> -->
 											</VBox>
 										</content>
 									</Panel>
-								</Panel>
+
 								<Panel expandable="true" width="auto" class="sapUiResponsiveMargin">
 									<headerToolbar>
 										<OverflowToolbar active="true" press="onOverflowToolbarPress">
@@ -174,8 +255,7 @@
 										</OverflowToolbar>
 									</headerToolbar>
 									<content>
-										<TextArea value="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" 
-										rows="4" width="60em"/>
+										<TextArea value="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" rows="4" width="60em"/>
 									</content>
 								</Panel>
 							</Panel>

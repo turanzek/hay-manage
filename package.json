@@ -1,9 +1,10 @@
 {
-  "name": "gubretas-mm-may",
+  "name": "gubretas-mm-hay",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "ui5 serve",
+    "start": "npm run serve --port 8081",
     "deploy": "ui5 build --exclude-task escapeNonAsciiCharacters"
   },
   "keywords": [],
