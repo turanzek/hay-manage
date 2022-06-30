@@ -46,12 +46,32 @@ sap.ui.define([
 			this._initApplication();
 		},
 		_initApplication: function () {
-			
+
+
+			var hashObject = new sap.ui.core.routing.HashChanger();
+			var hash = hashObject.getHash();
+
+			switch (true) {
+				case hash.includes("createRequest"):
+					var app = "createServis";
+					var title = "Hakediş Ekleme Süreci";
+					break;
+
+				case hash.includes("manageRelease"):
+					app = "manageRelease";
+					title = "Hakediş Onay Süreci";
+					break;
+
+				default:
+					break;
+			}
+
+
 			var oModel = new JSONModel();
 			this.setModel(oModel);
 
-			var app = "createRequest";
-			var title = "Malzeme Yaratma Talebi";
+			// var app = "createRequest";
+			// var title = "Malzeme Yaratma Talebi";
 			
 			var model = new JSONModel();
 			this.setModel(model, "application");
@@ -65,7 +85,7 @@ sap.ui.define([
 				async: true,
 				filters: filters,
 				urlParameters: {
-					"$expand": ["DataModel", "DataModel/ApproveSteps", "DataModel/Item","Item/ServiceEntry","Item/ServiceEntryItem","ServiceEntry/Files","ServiceEntry/ServiceEntryItem"]
+					"$expand": ["DataModel", "DataModel/ApproveSteps", "DataModel/Items","DataModel/ServiceEntries","Items/ServiceEntryItems","ServiceEntries/Files","ServiceEntries/ServiceEntryItems"]
 				},
 				success: function (data) {
 
