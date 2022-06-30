@@ -46,17 +46,32 @@ sap.ui.define([
 			this._initApplication();
 		},
 		_initApplication: function () {
-			
+
+
+			var hashObject = new sap.ui.core.routing.HashChanger();
+			var hash = hashObject.getHash();
+
+			switch (true) {
+				case hash.includes("createRequest"):
+					var app = "createServis";
+					var title = "Hakediş Ekleme Süreci";
+					break;
+
+				case hash.includes("manageRelease"):
+					app = "manageRelease";
+					title = "Hakediş Onay Süreci";
+					break;
+
+				default:
+					break;
+			}
+
+
 			var oModel = new JSONModel();
 			this.setModel(oModel);
 
-			var app = "createRequest";
-
-			
-
-			// "CreateServiceSheet",
-			// "ReleaseServiceSheet" 
-			var title = "Malzeme Yaratma Talebi";
+			// var app = "createRequest";
+			// var title = "Malzeme Yaratma Talebi";
 			
 			var model = new JSONModel();
 			this.setModel(model, "application");
@@ -66,25 +81,25 @@ sap.ui.define([
 			var busyDialog = new sap.m.BusyDialog({});
 
 
-			// var parameters = {
-			// 	async: true,
-			// 	filters: filters,
-			// 	urlParameters: {
-			// 		"$expand": ["DataModel", "DataModel/ApproveSteps", "DataModel/Item","Item/ServiceEntry","Item/ServiceEntryItem","ServiceEntry/Files","ServiceEntry/ServiceEntryItem"]
-			// 	},
-			// 	success: function (data) {
+			var parameters = {
+				async: true,
+				filters: filters,
+				urlParameters: {
+					"$expand": ["DataModel", "DataModel/ApproveSteps", "DataModel/Items","DataModel/ServiceEntries","Items/ServiceEntryItems","ServiceEntries/Files","ServiceEntries/ServiceEntryItems"]
+				},
+				success: function (data) {
 
-			// 		var applicationModel = this.getModel("application");
-			// 		var result = data.results[0]
-			// 		result.listCount = result.DataModel.results.length;
-			// 		applicationModel.setData(result);
-			// 		busyDialog.close();
+					var applicationModel = this.getModel("application");
+					var result = data.results[0]
+					result.listCount = result.DataModel.results.length;
+					applicationModel.setData(result);
+					busyDialog.close();
 
-			// 	}.bind(this),
-			// 	error: function (error) {
-			// 		busyDialog.close();
-			// 	}.bind(this)
-			// };
+				}.bind(this),
+				error: function (error) {
+					busyDialog.close();
+				}.bind(this)
+			};
 
 			busyDialog.open();
 			this.getModel("mainModel").read("/ApplicationSet", parameters);

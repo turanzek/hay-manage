@@ -31,27 +31,28 @@
 				</headerToolbar>
 				<columns>
 					<Column>
-						<Text text="Malzeme / Talep No" />
+						<Text text="SAS No" />
 					</Column>
 
 					<Column>
-						<Text text="Kısa Metni" />
+						<Text text="Satıcı" />
 					</Column>
-					<Column visible="{= ${application>/App} === 'manageRelease' }">
-						<Text text="{i8n>textArea}" />
+					<!-- <Column visible="{= ${application>/App} === 'manageRelease' }">
+						<Text text="Talep tipi" />
 					</Column>
 					<Column hAlign="End">
 						<Text text="Durum" />
-					</Column>
+					</Column> -->
 				</columns>
 				<items>
 					<ColumnListItem type="Navigation">
 						<cells>
-							<ObjectIdentifier text="{= ${application>RequestNo} === 'TEMP_REQU' ? 'Yeni talep' : ${application>RequestNo} === 'NONE_REQU' ?  'Talep yok' : ${application>RequestNo} }" title="{= ${application>Matnr} === 'TEMP_MATE' ? 'Yeni Malzeme' : ${application>Matnr} }" />
+							<!-- <ObjectIdentifier text="{= ${application>RequestNo} === 'TEMP_REQU' ? 'Yeni talep' : ${application>RequestNo} === 'NONE_REQU' ?  'Talep yok' : ${application>RequestNo} }" title="{= ${application>Matnr} === 'TEMP_MATE' ? 'Yeni Malzeme' : ${application>Matnr} }" /> -->
 
-							<ObjectIdentifier title="{ path : 'application>Maktx' }" />
-							<ObjectStatus visible="{= ${application>/App} === 'manageRelease' }" text="{application>ProcessTypeText}" state="Information" />
-							<ObjectStatus text="{application>StatusText}" state="{application>StatusState}" />
+							<ObjectIdentifier title="{ path : 'application>EbelnPo' }" />
+								<ObjectIdentifier title="{ path : 'application>Lifnr' }" />
+							<!-- <ObjectStatus visible="{= ${application>/App} === 'manageRelease' }" text="{application>ProcessTypeText}" state="Information" />
+							<ObjectStatus text="{application>StatusText}" state="{application>StatusState}" /> -->
 						</cells>
 					</ColumnListItem>
 				</items>
