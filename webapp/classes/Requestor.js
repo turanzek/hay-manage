@@ -11,6 +11,7 @@ sap.ui.define([
 	"sap/m/List",
 	"sap/m/StandardListItem",
 	"gubretas/mm/hay/classes/Helper",
+	"sap/m/TextArea"
 ], function (Object,
 	JSONModel,
 	Controller,
@@ -22,7 +23,8 @@ sap.ui.define([
 	library,
 	List,
 	StandardListItem,
-	Helper
+	Helper,
+	TextArea
 ) {
 
 	var ButtonType = library.ButtonType;

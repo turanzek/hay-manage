@@ -51,6 +51,11 @@ sap.ui.define([
 			this.setModel(oModel);
 
 			var app = "createRequest";
+
+			
+
+			// "CreateServiceSheet",
+			// "ReleaseServiceSheet" 
 			var title = "Malzeme Yaratma Talebi";
 			
 			var model = new JSONModel();
@@ -61,25 +66,25 @@ sap.ui.define([
 			var busyDialog = new sap.m.BusyDialog({});
 
 
-			var parameters = {
-				async: true,
-				filters: filters,
-				urlParameters: {
-					"$expand": ["DataModel", "DataModel/ApproveSteps", "DataModel/Item","Item/ServiceEntry","Item/ServiceEntryItem","ServiceEntry/Files","ServiceEntry/ServiceEntryItem"]
-				},
-				success: function (data) {
+			// var parameters = {
+			// 	async: true,
+			// 	filters: filters,
+			// 	urlParameters: {
+			// 		"$expand": ["DataModel", "DataModel/ApproveSteps", "DataModel/Item","Item/ServiceEntry","Item/ServiceEntryItem","ServiceEntry/Files","ServiceEntry/ServiceEntryItem"]
+			// 	},
+			// 	success: function (data) {
 
-					var applicationModel = this.getModel("application");
-					var result = data.results[0]
-					result.listCount = result.DataModel.results.length;
-					applicationModel.setData(result);
-					busyDialog.close();
+			// 		var applicationModel = this.getModel("application");
+			// 		var result = data.results[0]
+			// 		result.listCount = result.DataModel.results.length;
+			// 		applicationModel.setData(result);
+			// 		busyDialog.close();
 
-				}.bind(this),
-				error: function (error) {
-					busyDialog.close();
-				}.bind(this)
-			};
+			// 	}.bind(this),
+			// 	error: function (error) {
+			// 		busyDialog.close();
+			// 	}.bind(this)
+			// };
 
 			busyDialog.open();
 			this.getModel("mainModel").read("/ApplicationSet", parameters);

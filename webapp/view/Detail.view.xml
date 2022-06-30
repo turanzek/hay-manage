@@ -44,7 +44,7 @@
 
 
 			<uxap:subSections>
-				<uxap:ObjectPageSubSection title="Temel Veriler" visible="{application>UiConfig/BasisViewActive}">
+				<uxap:ObjectPageSubSection title="Temel Veriler" visible="{application>UiConfig/BasisViewActive}" blocks="{}">
 					<uxap:blocks>
 						<VBox>
 							<Text text="test"></Text>

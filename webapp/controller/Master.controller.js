@@ -28,6 +28,7 @@ sap.ui.define(
           aFilter: [],
           aSearch: [],
         };
+        this.getView().
       },
       onListItemPress: function (oEvent) {
         // BusyIndicator.show();

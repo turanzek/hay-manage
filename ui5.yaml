@@ -36,13 +36,13 @@ builder:
         resources:
           pattern: "**/*.*"
         connection:
-          server: http://192.168.50.21:8000/
+          server: http://178.18.200.183:8000/
           client: 100
           useStrictSSL: false
         ui5:
           language: TR
-          package: ZMM_HAY
-          bspContainer: ZMM_HAY_MANAGE
+          package: $TMP
+          bspContainer: ZUI5_OFFLINE
           bspContainerText: Hakediş yönetimi
           calculateApplicationIndex: true
           transportNo: G4DK901852

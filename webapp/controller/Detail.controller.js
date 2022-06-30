@@ -37,6 +37,7 @@ sap.ui.define([
 			this.oRouter.getRoute("detail").attachPatternMatched(this._onMasterMatched, this);
 			this.oRouter.getRoute("detailDetail").attachPatternMatched(this._onMasterMatched, this);
 
+
 	/* 		[oExitButton, oEnterButton].forEach(function (oButton) {
 				oButton.addEventDelegate({
 					onAfterRendering: function () {
@@ -98,9 +99,6 @@ sap.ui.define([
 			// uiConfig.BasisViewEditable
 			// uiConfig.MipViewEditable
 			// uiConfig.PurchaseViewEditable
-
-
-
 
 		},
 		handleItemPress: function (oEvent) {
