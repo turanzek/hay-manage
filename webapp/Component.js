@@ -100,7 +100,6 @@ sap.ui.define([
 					busyDialog.close();
 				}.bind(this)
 			};
-
 			busyDialog.open();
 			this.getModel("mainModel").read("/ApplicationSet", parameters);
 		},

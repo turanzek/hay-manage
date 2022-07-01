@@ -1,4 +1,13 @@
-<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Detail" height="100%" xmlns:uxap="sap.uxap" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:f="sap.f" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table" xmlns:u="sap.ui.unified" xmlns:table="sap.ui.table">
+<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Detail" height="100%"
+	xmlns:uxap="sap.uxap"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.m"
+	xmlns:form="sap.ui.layout.form"
+	xmlns:f="sap.f"
+	xmlns:core="sap.ui.core"
+	xmlns:t="sap.ui.table"
+	xmlns:u="sap.ui.unified"
+	xmlns:table="sap.ui.table">
 	<uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false" showFooter="true">
 		<uxap:headerTitle>
 			<uxap:ObjectPageDynamicHeaderTitle>
@@ -168,12 +177,59 @@
 
 		<uxap:ObjectPageSection title="Hakediş bilgileri" titleUppercase="false">
 			<uxap:subSections>
-				<uxap:ObjectPageSubSection   showTitle="false">
+				<uxap:ObjectPageSubSection showTitle="false">
 					<uxap:blocks>
 						<VBox items="{application>ServiceEntries/results}">
+
 							<Panel expandable="true" headerText="Hakediş {application>Sequence}" width="auto" class="sapUiResponsiveMargin">
+
+								<form:SimpleForm maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+									<form:content>
+
+										<core:Title text="Fatura Bilgileri" />
+
+										<Label text="Fatura Tarihi" class="sapUiTinyMarginEnd" />
+										<Text text="{ path : 'application>Budat' , type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" />
+										<Label text="Fatura No" class="sapUiTinyMarginEnd" />
+										<Text text=" {application>Xblnr}" />
+										<Label text="Fatura Tutarı ?" class="sapUiTinyMarginEnd" />
+										<Text text=" {application>Xblnr}" />
+
+										<core:Title text="Personel Bilgileri" />
+										<Label text="Personel No" class="sapUiTinyMarginEnd" />
+										<Text text=" {application>Pernr}" />
+										<Label text="Personel Adı Soyadı" class="sapUiTinyMarginEnd" />
+										<Text text=" {application>Sname}" />
+										<Label text="Organizasyon Tanımı" class="sapUiTinyMarginEnd" />
+										<Text text=" {application>Orgeh}" />
+
+									</form:content>
+								</form:SimpleForm>
+
+
 								<VBox items="{application>Details/results}" class="sapUiNoMargin">
-									<Panel expandable="true" width="auto" class="sapUiResponsiveMargin" headerText="Kalemler {application>Ebelp}" >
+									<Panel expandable="true" width="auto" class="sapUiResponsiveMargin" headerText="Kalemler {application>Ebelp}">
+
+									<form:SimpleForm maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+											<form:content>
+		
+												<core:Title text="Kalem Detay Bilgileri" />
+							
+												<Label text="Gerçekleşen İş Birimi" class="sapUiTinyMarginEnd" />
+												<Text text="?" />
+												<Label text="Şuana kadar yapılan hakediş" class="sapUiTinyMarginEnd" />
+												<Text text="?" />
+		
+												<core:Title text="" />
+												<Label text="Sözleşme Birim Fiyat?" class="sapUiTinyMarginEnd" />
+												<Text text=" {application>Netpr}" />
+												<Label text="Sözleşme Para Birimi" class="sapUiTinyMarginEnd" />
+												<Text text=" {application>Waers}" />
+		
+											</form:content>
+										</form:SimpleForm> 
+
+
 										<content>
 											<VBox class="sapUiNoMargin">
 												<table:Table rows="{application>ServiceEntryItems/results}" visibleRowCount="7" ariaLabelledBy="title">
@@ -184,21 +240,21 @@
 													</table:extension>
 													<table:columns>
 														<table:Column width="11rem">
-															<Label text="Product Name" />
+															<Label text="Fatura Kalem Tutarı" />
 															<table:template>
 																<Text text="{application>Srvpos}" wrapping="false" />
 															</table:template>
 														</table:Column>
 														<table:Column width="11rem">
-															<Label text="Product Id" />
+															<Label text="Gerçekleşen Birim Fiyat" />
 															<table:template>
-																<Input value="{ProductId}" />
+																<Input value="{application>Srvpos}" />
 															</table:template>
 														</table:Column>
 														<table:Column width="6rem" hAlign="End">
-															<Label text="Quantity" />
+															<Label text="Gerçekleşen İş Miktarı" />
 															<table:template>
-																<Label text="{Quantity}" />
+																<Label text="?" />
 															</table:template>
 														</table:Column>
 													</table:columns>
