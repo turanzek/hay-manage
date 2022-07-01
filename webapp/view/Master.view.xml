@@ -19,7 +19,7 @@
 		</f:title>
 		<!-- text="{application>/listCount}"/> -->
 		<f:content>
-			<Table id="masterTable" mode="SingleSelectMaster" itemPress="onListItemPress" inset="false" items="{
+			<Table id="masterTable" mode="SingleSelectMaster" itemPress="onListItemPress" items="{
 					path: 'application>/DataModel/results'
 				}" class="sapFDynamicPageAlignContent" width="auto" noDataText="Kayıt bulunamadı">
 				<headerToolbar>
