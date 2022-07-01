@@ -11,7 +11,14 @@
     },
     "resources": "resources.json",
     "dataSources": {
-   
+      "mainService": {
+        "uri": "/sap/opu/odata/sap/ZMM_HAY_MANAGE_SRV/",
+        "type": "OData",
+        "settings": {
+          "odataVersion": "2.0",
+          "localUri": "localService/metadata.xml"
+        }
+      },
       "valueService": {
         "uri": "/sap/opu/odata/sap/ZABAP_VALUE_HELPER_SRV/",
         "type": "OData",

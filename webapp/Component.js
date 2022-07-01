@@ -85,7 +85,7 @@ sap.ui.define([
 				async: true,
 				filters: filters,
 				urlParameters: {
-					"$expand": ["DataModel", "DataModel/ApproveSteps", "DataModel/Items","DataModel/ServiceEntries","Items/ServiceEntryItems","ServiceEntries/Files","ServiceEntries/ServiceEntryItems"]
+					"$expand": ["DataModel", "DataModel/ApproveSteps", "DataModel/Items","DataModel/ServiceEntries","DataModel/Items/ServiceEntryItems","DataModel/ServiceEntries/Files","DataModel/ServiceEntries/Details/ServiceEntryItems"]
 				},
 				success: function (data) {
 
