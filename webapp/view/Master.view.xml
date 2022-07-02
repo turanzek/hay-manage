@@ -1,8 +1,5 @@
-<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Master" height="100%"
-	xmlns="sap.m"
-	xmlns:f="sap.f"
-	xmlns:mvc="sap.ui.core.mvc">
-	<f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false">
+<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Master" height="100%" xmlns="sap.m" xmlns:f="sap.f" xmlns:mvc="sap.ui.core.mvc">
+	<f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false" fitContent="true" class="sapUiNoContentPadding">
 
 		<f:title>
 			<f:DynamicPageTitle>
@@ -13,50 +10,35 @@
 						'application>/listCount'
 					],
 					formatter: 'jQuery.sap.formatMessage'
-			}"/>
+			}" />
 				</f:heading>
 			</f:DynamicPageTitle>
 		</f:title>
 		<!-- text="{application>/listCount}"/> -->
 		<f:content>
-			<Table id="masterTable" mode="SingleSelectMaster" itemPress="onListItemPress" items="{
-					path: 'application>/DataModel/results'
-				}" class="sapFDynamicPageAlignContent" width="auto" noDataText="Kayıt bulunamadı">
+			<List class="sapUiNoMargin" items="{
+				path: 'application>/DataModel/results'
+			}">
 				<headerToolbar>
 					<OverflowToolbar>
 						<SearchField search="onSearch" width="17.5rem" />
 						<!-- <OverflowToolbarButton icon="sap-icon://sort" type="Transparent" press="onSort" /> 
-						<Button text="Yeni Malzeme" icon="sap-icon://add" type="Transparent" press="onAdd" visible="{application>/UiModel/CreateActive}" />-->
+					<Button text="Yeni Malzeme" icon="sap-icon://add" type="Transparent" press="onAdd" visible="{application>/UiModel/CreateActive}" />-->
 					</OverflowToolbar>
 				</headerToolbar>
-				<columns>
-					<Column>
-						<Text text="SAS No" />
-					</Column>
+				<ObjectListItem title="SAS : {application>EbelnPo}" intro="Sözleşme : {application>EbelnContract}" type="Active" number="30.000 TRY"  detailPress="onListItemPress" press="onListItemPress">
+					<firstStatus>
+						<ObjectStatus text="Tutarsal %120" state="Success" />
+					</firstStatus>
+					<secondStatus>
+						<ObjectStatus text="Miktarsal %80" state="Error" />
+					</secondStatus>
+					<ObjectAttribute text="{application>Name1}" />
+					<ObjectAttribute text="{application>Lifnr}" />
 
-					<Column>
-						<Text text="Satıcı" />
-					</Column>
-					<!-- <Column visible="{= ${application>/App} === 'manageRelease' }">
-						<Text text="Talep tipi" />
-					</Column>
-					<Column hAlign="End">
-						<Text text="Durum" />
-					</Column> -->
-				</columns>
-				<items>
-					<ColumnListItem type="Navigation">
-						<cells>
-							<!-- <ObjectIdentifier text="{= ${application>RequestNo} === 'TEMP_REQU' ? 'Yeni talep' : ${application>RequestNo} === 'NONE_REQU' ?  'Talep yok' : ${application>RequestNo} }" title="{= ${application>Matnr} === 'TEMP_MATE' ? 'Yeni Malzeme' : ${application>Matnr} }" /> -->
-
-							<ObjectIdentifier title="{ path : 'application>EbelnPo' }" />
-								<ObjectIdentifier title="{ path : 'application>Lifnr' }" />
-							<!-- <ObjectStatus visible="{= ${application>/App} === 'manageRelease' }" text="{application>ProcessTypeText}" state="Information" />
-							<ObjectStatus text="{application>StatusText}" state="{application>StatusState}" /> -->
-						</cells>
-					</ColumnListItem>
-				</items>
-			</Table>
+					<!-- <ObjectAttribute text="{Width} x {Depth} x {Height} {DimUnit}" /> -->
+				</ObjectListItem>
+			</List>
 		</f:content>
 
 		<!-- DynamicPage Footer -->

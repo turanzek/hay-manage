@@ -35,14 +35,12 @@ sap.ui.define(
 
         this.showBusyIndicator(50, 0);
         var oNextUIState = this.getOwnerComponent()
-            .getHelper()
-            .getNextUIState(1),
-          itemPath = oEvent
-            .getSource()
-            .getSelectedItem()
-            .getBindingContext("application")
-            .getPath(),
-          itemNo = itemPath.split("/").slice(-1).pop();
+          .getHelper()
+          .getNextUIState(1);
+
+
+        var itemPath = oEvent.getSource().getBindingContext("application").getPath();
+        var itemNo = itemPath.split("/").slice(-1).pop();
 
         this.oRouter.navTo("detail", {
           layout: oNextUIState.layout,
