@@ -7,3 +7,46 @@
 .sapMInput.InputMaktx .sapMInputBaseInner {
     text-transform: uppercase;
 }
+
+.secenekClass {
+    font-size: 12px !important;
+    font-weight: bold !important;
+    /*margin-top:10px !important;
+	margin-bottom: 10px !important;*/
+}
+
+.sapUiCompFilterBar {
+    background: transparent !important;
+    border: none !important;
+}
+
+.sapMSltDisabled {
+    opacity: 1 !important;
+    background: #f4f4f4 !important;
+}
+
+.formHiddenTitle .sapUiFormContainerTitle .sapUiFormTitle {
+    display: none;
+}
+
+.sapUiSizeCompact .myCustomTable .sapMListTblCell {
+    padding-top: 0.20rem;
+    padding-right: 0.25rem;
+    padding-bottom: 0.1rem;
+    padding-left: 0.25rem;
+}
+
+
+.sapUiSizeCompact .myCustomPanel .sapMPanelContent{
+    padding-top: 0.5rem;
+    padding-right: 0.2rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.2rem;
+}
+
+.sapFDynamicPageContent, .myCustomPage .sapFDynamicPageContentFitContainer{
+    padding-top: 0.5rem;
+    padding-right: 1rem;
+    padding-bottom: 0px;
+    padding-left: 1rem;
+}

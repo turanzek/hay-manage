@@ -1,4 +1,4 @@
-<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Detail" height="100%" xmlns:uxap="sap.uxap" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:f="sap.f" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table" xmlns:u="sap.ui.unified" xmlns:table="sap.ui.table">
+<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Detail" height="100%" xmlns:uxap="sap.uxap" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:f="sap.f" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table" xmlns:u="sap.ui.unified" xmlns:table="sap.ui.table" xmlns:upload="sap.m.upload">
 	<uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false" showFooter="true">
 		<uxap:headerTitle>
 			<uxap:ObjectPageDynamicHeaderTitle>
@@ -171,208 +171,123 @@
 				<uxap:ObjectPageSubSection showTitle="false">
 					<uxap:blocks>
 						<VBox items="{application>ServiceEntries/results}">
+							<Panel expandable="true" headerText="Hakediş {application>Sequence}" width="auto" class="sapUiSizeCompact myCustomPanel" expanded="true">
 
-							<Panel expandable="true" headerText="Hakediş {application>Sequence}" width="auto" class="sapUiNoMargin" expanded="true">
+								<Panel expandable="true" headerText="Fatura Bilgileri">
 
-								<form:SimpleForm maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
-									<form:content>
+									<form:SimpleForm maxContainerCols="2" class="formHiddenTitle" editable="true" layout="ResponsiveGridLayout" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
+										<form:content>
 
-										<core:Title text="Fatura Bilgileri" />
+											<core:Title text="Fatura Bilgileri" />
 
-										<Label text="Fatura Tarihi" class="sapUiTinyMarginEnd" />
-										<Text text="{ path : 'application>Budat' , type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" />
-										<Label text="Fatura No" class="sapUiTinyMarginEnd" />
-										<Text text=" {application>Xblnr}" />
-										<Label text="Fatura Tutarı ?" class="sapUiTinyMarginEnd" />
-										<Text text=" {application>Xblnr}" />
+											<Label text="Fatura Tarihi" class="sapUiTinyMarginEnd" />
+											<Text text="{ path : 'application>Budat' , type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" />
+											<Label text="Fatura No" class="sapUiTinyMarginEnd" />
+											<Text text=" {application>Xblnr}" />
+											<Label text="Fatura Tutarı ?" class="sapUiTinyMarginEnd" />
+											<Text text=" {application>Xblnr}" />
 
-										<core:Title text="Personel Bilgileri" />
-										<Label text="Personel No" class="sapUiTinyMarginEnd" />
-										<Text text=" {application>Pernr}" />
-										<Label text="Personel Adı Soyadı" class="sapUiTinyMarginEnd" />
-										<Text text=" {application>Sname}" />
-										<Label text="Organizasyon Tanımı" class="sapUiTinyMarginEnd" />
-										<Text text=" {application>Orgeh}" />
+											<core:Title text="Personel Bilgileri" />
+											<Label text="Personel No" class="sapUiTinyMarginEnd" />
+											<Text text=" {application>Pernr}" />
+											<Label text="Personel Adı Soyadı" class="sapUiTinyMarginEnd" />
+											<Text text=" {application>Sname}" />
+											<Label text="Organizasyon Tanımı" class="sapUiTinyMarginEnd" />
+											<Text text=" {application>Orgeh}" />
 
-									</form:content>
-								</form:SimpleForm>
+										</form:content>
+									</form:SimpleForm>
 
-
-								<VBox items="{application>Details/results}" class="sapUiNoMargin">
-									<Panel expandable="true" width="auto" class="sapUiNoMargin" headerText="Kalemler {application>Ebelp}" expanded="true">
-
-										<form:SimpleForm maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
-											<form:content>
-
-												<core:Title text="Kalem Detay Bilgileri" />
-
-												<Label text="Gerçekleşen İş Birimi" class="sapUiTinyMarginEnd" />
-												<Text text="?" />
-												<Label text="Şuana kadar yapılan hakediş" class="sapUiTinyMarginEnd" />
-												<Text text="?" />
-
-												<core:Title text="" />
-												<Label text="Sözleşme Birim Fiyat?" class="sapUiTinyMarginEnd" />
-												<Text text=" {application>Netpr}" />
-												<Label text="Sözleşme Para Birimi" class="sapUiTinyMarginEnd" />
-												<Text text=" {application>Waers}" />
-
-											</form:content>
-										</form:SimpleForm>
-
-
-										<content>
-											<VBox class="sapUiNoMargin">
-												<table:Table rows="{application>ServiceEntryItems/results}" visibleRowCount="7" ariaLabelledBy="title">
-													<table:extension>
-														<OverflowToolbar style="Clear">
-															<Title id="title" text="Servisler" />
-														</OverflowToolbar>
-													</table:extension>
-													<table:columns>
-														<table:Column width="11rem">
-															<Label text="Fatura Kalem Tutarı" />
-															<table:template>
-																<Text text="{application>Srvpos}" wrapping="false" />
-															</table:template>
-														</table:Column>
-														<table:Column width="11rem">
-															<Label text="Gerçekleşen Birim Fiyat" />
-															<table:template>
-																<Input value="{application>Srvpos}" />
-															</table:template>
-														</table:Column>
-														<table:Column width="6rem" hAlign="End">
-															<Label text="Gerçekleşen İş Miktarı" />
-															<table:template>
-																<Label text="?" />
-															</table:template>
-														</table:Column>
-													</table:columns>
-												</table:Table>
-												<!-- <form:SimpleForm maxContainerCols="2" editable="true" layout="ResponsiveGridLayout" labelSpanL="3" labelSpanM="3" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
-												<form:content>
-
-													<core:Title text="" />
-
-													<Label text="Fatura Tarihi" />
-													<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>MaterialKind}" width="5rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
-
-													<Label text="Fatura No" />
-													<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Mtart}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" maxLength="{= parseInt(${mainModel>/#DataModel/Mtart/@maxLength}) }" required="true" />
-
-													<Label text="Fatura Tutarı" />
-													<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Matkl}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
-
-													<Label text="Para Birimi" />
-													<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>Maktx}" width="20rem" required="true" class="InputMaktx" />
-
-													<core:Title text="" />
-
-													<Label text="Ödeme Vadesi" />
-													<Input editable="{= ${application>UiConfig/BasisViewEditable} &amp;&amp; ${application>ProcessType} === '01' ? true : false }" value="{application>Meins}" width="5rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" />
-
-													<Label text="Açıklama" />
-													<Input editable="{=  ${application>UiConfig/BasisViewEditable}  || ${application>UiConfig/ExtwgEditable}  }" value="{application>Extwg}" width="10rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" />
-
-													<Label text="Personel No" />
-													<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>VendorChoice}" width="15rem" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" />
-
-													<Label text="Personel adı soyadı" />
-													<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>StorageText}" width="20rem" />
-
-													<Label text="Operasyon tanımı" />
-													<Input editable="{application>UiConfig/BasisViewEditable}" value="{application>StorageText}" width="20rem" />
-
-
-												</form:content>
-											</form:SimpleForm> -->
-											</VBox>
-										</content>
-
-
-									</Panel>
-								</VBox>
-							</Panel>
-
-
-							<!-- <Panel expandable="true" width="auto" class="sapUiResponsiveMargin">
-									<headerToolbar>
-										<OverflowToolbar active="true" press="onOverflowToolbarPress">
-											<Title text="Kalem-1 154 KV DEPLASE İŞLERİ TOPLAMI" />
-											<ToolbarSpacer />
-											<Button icon="sap-icon://settings" />
-											<Button icon="sap-icon://drop-down-list" />
-										</OverflowToolbar>
-									</headerToolbar>
-									<content>
-										<VBox>
-
-											<t:Table id="table1" rows="{/ProductCollection}" selectionMode="MultiToggle" visibleRowCount="7" ariaLabelledBy="title">
-
-												<t:columns>
-													<t:Column width="11rem">
-														<Label text="Fatura Kalem Tutarı" />
-														<t:template>
-															<Text text="{Name}" wrapping="false" />
-														</t:template>
-													</t:Column>
-													<t:Column width="11rem">
-														<Label text="Şuana kadar yapılan hakediş" />
-														<t:template>
-															<Input value="{ProductId}" />
-														</t:template>
-													</t:Column>
-													<t:Column width="6rem" hAlign="End">
-														<Label text="Sözleşme Birim Fiyatı" />
-														<t:template>
-															<Label text="{Quantity}" />
-														</t:template>
-													</t:Column>
-													<t:Column width="9rem">
-														<Label text="Sözleşme Para Birimi" />
-														<t:template>
-															<ObjectStatus text="{Status}" state="{
-								path: 'Available',
-								formatter: '.formatAvailableToObjectState'
-							}" />
-														</t:template>
-													</t:Column>
-													<t:Column width="9rem">
-														<Label text="Gerçekleşen Birim Fiyat" />
-														<t:template>
-															<u:Currency value="{Price}" currency="{CurrencyCode}" />
-														</t:template>
-													</t:Column>
-													<t:Column width="12rem">
-														<Label text="Gerçekleşen İş Miktarı" />
-														<t:template>
-															<ComboBox value="{SupplierName}" items="{/Suppliers}">
-																<core:Item text="{Name}" />
-															</ComboBox>
-														</t:template>
-													</t:Column>
-													<t:Column width="9rem">
-														<Label text="Gerçekleşen İşin Birimi" />
-														<t:template>
-															<Link text="Show Image" href="{ProductPicUrl}" target="_blank" />
-														</t:template>
-													</t:Column>
-													<t:Column width="9rem">
-														<Label text="Details" />
-														<t:template>
-															<Button text="Show Details" press="handleDetailsPress" />
-														</t:template>
-													</t:Column>
-
-												</t:columns>
-											</t:Table>
-
-										</VBox>
-									</content>
 								</Panel>
 
-								<Panel expandable="true" width="auto" class="sapUiResponsiveMargin">
+								<Panel expandable="true" headerText="Hizmetler">
+									<Table  inset="false" items="{application>Details/results/0/ServiceEntryItems/results}" mode="None" delete="onDeleteService">
+										<headerToolbar>
+											<OverflowToolbar>
+												<content>
+													<Button text="Hizmet ekle" press="onPressAddService" type="Emphasized" visible="false" icon="sap-icon://add" />
+													<ToolbarSpacer />
+												</content>
+											</OverflowToolbar>
+										</headerToolbar>
+										<columns>
+											<Column>
+												<Text text="Hizmet" class="sapUiTinyMarginTop" />
+											</Column>
+											<Column>
+												<Text text="Hizmet metni" class="sapUiTinyMarginTop" />
+											</Column>
+											<Column>
+												<Text text="Şuana kadar yapılan hakediş" class="sapUiTinyMarginTop" />
+											</Column>
+											<Column demandPopin="true">
+												<Text text="Gerçekleşen Birim Fiyat" class="sapUiTinyMarginTop" />
+											</Column>
+											<Column>
+												<Text text="Gerçekleşen İş Miktarı" class="sapUiTinyMarginTop" />
+											</Column>
+											<Column>
+												<Text text="Sözleşme Birim Fiyat" class="sapUiTinyMarginTop" />
+											</Column>
+											<Column>
+												<Text text="Sözleşme Para Birimi" class="sapUiTinyMarginTop" />
+											</Column>
+										</columns>
+										<!-- <items> -->
+										<ColumnListItem>
+											<cells>
+												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
+												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
+												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
+
+												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
+
+												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
+
+												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
+
+												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
+											</cells>
+										</ColumnListItem>
+										<!-- </items> -->
+									</Table>
+
+								</Panel>
+
+
+								<Panel expandable="true" headerText="Açıklamalar">
+									<TextArea value="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" rows="4" width="60em" />
+
+								</Panel>
+
+								<Panel expandable="true" headerText="Ek ekleme">
+									<upload:UploadSet id="UploadSet" instantUpload="true" showIcons="false" uploadEnabled="false" terminationEnabled="true" fileTypes="txt,doc,png" maxFileNameLength="30" maxFileSize="200" mediaTypes="text/plain,application/msword,image/jpeg" uploadUrl="../../../../upload" items="{application>Files/results}" mode="MultiSelect" selectionChanged="onSelectionChange">
+										<!-- <upload:toolbar> -->
+											<!-- <OverflowToolbar> -->
+												<!-- <Button id="uploadSelectedButton" text="Upload selected" press="onUploadSelectedButton" />
+												<Button id="downloadSelectedButton" text="Download selected" press="onDownloadSelectedButton" />
+												<Button id="versionButton" enabled="false" text="Upload a new version" press="onVersionUpload" /> -->
+												<!-- <upload:UploadSetToolbarPlaceholder /> -->
+											<!-- </OverflowToolbar> -->
+										<!-- </upload:toolbar> -->
+										<upload:items>
+											<upload:UploadSetItem fileName="{fileName}" mediaType="{mediaType}" url="{url}" thumbnailUrl="{thumbnailUrl}" attributes="{path: 'attributes', templateShareable: false}" markers="{path: 'markers', templateShareable: false}" statuses="{path: 'statuses', templateShareable: false}" uploadState="{uploadState}">
+												<upload:attributes>
+													<ObjectAttribute title="{title}" text="{text}" active="{active}" />
+												</upload:attributes>
+												<upload:markers>
+													<ObjectMarker type="{type}" visibility="{visibility}" />
+												</upload:markers>
+												<upload:statuses>
+													<ObjectStatus title="{title}" text="{text}" state="{state}" icon="{icon}" active="{active}" />
+												</upload:statuses>
+											</upload:UploadSetItem>
+										</upload:items>
+									</upload:UploadSet>
+								</Panel>
+
+
+								<!-- <Panel expandable="true" width="auto" class="sapUiSizeCompact myCustomPanel">
 									<headerToolbar>
 										<OverflowToolbar active="true" press="onOverflowToolbarPress">
 											<Title text="Hakediş 1 Açıklamalar" />
@@ -382,12 +297,12 @@
 										</OverflowToolbar>
 									</headerToolbar>
 									<content>
-										<TextArea value="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" rows="4" width="60em" />
+							
 									</content>
 								</Panel> -->
-							<!-- </Panel> -->
-						</VBox>
+							</Panel>
 
+						</VBox>
 					</uxap:blocks>
 				</uxap:ObjectPageSubSection>
 			</uxap:subSections>
