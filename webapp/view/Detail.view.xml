@@ -1,17 +1,20 @@
-<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Detail" height="100%" xmlns:uxap="sap.uxap" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:f="sap.f" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table" xmlns:u="sap.ui.unified" xmlns:table="sap.ui.table" xmlns:upload="sap.m.upload">
+<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Detail" height="100%" xmlns:uxap="sap.uxap" 	xmlns:mc2="sap.ui.comp.smartmicrochart" xmlns:mc="sap.suite.ui.microchart"  xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:f="sap.f" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table" xmlns:u="sap.ui.unified" xmlns:table="sap.ui.table" xmlns:upload="sap.m.upload">
 	<uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false" showFooter="true">
 		<uxap:headerTitle>
 			<uxap:ObjectPageDynamicHeaderTitle>
 				<uxap:expandedHeading>
 					<Title text="{application>EbelnPo} numaralı Satınalma Siparişi" wrapping="true" class="sapUiSmallMarginEnd" />
+		
 				</uxap:expandedHeading>
 
 				<uxap:snappedHeading>
 					<FlexBox wrap="Wrap" fitContainer="true" alignItems="Center">
 						<FlexBox wrap="NoWrap" fitContainer="true" alignItems="Center" class="sapUiTinyMarginEnd">
 							<Title text="{application>EbelnPo} numaralı Satınalma Siparişi" title="" titleStyle="H1" wrapping="true" class="sapUiTinyMarginEnd" />
-						</FlexBox>
+							
+							</FlexBox>
 					</FlexBox>
+	
 				</uxap:snappedHeading>
 
 				<uxap:navigationActions>
@@ -33,26 +36,11 @@
 		<uxap:headerContent>
 
 			<HeaderContainer scrollStep="200" showDividers="false">
+	
 				<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
 
 					<VBox class="sapUiSmallMarginBottom">
-						<Title class="sapUiTinyMarginBottom" text="Sipariş Bilgileri"></Title>
-						<HBox class="sapUiTinyMarginBottom" renderType="Bare">
-							<Label text="Oluşturan" class="sapUiTinyMarginEnd" />
-							<Text text="{application>CreatePoUname}" />
-						</HBox>
-
-						<HBox class="sapUiTinyMarginBottom" renderType="Bare">
-							<Label text="Oluşturma tarihi" class="sapUiTinyMarginEnd" />
-							<Text text="{ path : 'application>CreatePoDate' , type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" />
-						</HBox>
-					</VBox>
-				</HBox>
-
-				<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
-
-					<VBox class="sapUiSmallMarginBottom">
-						<Title class="sapUiTinyMarginBottom" text="Satınalma bilgileri"></Title>
+						<!-- <Title class="sapUiTinyMarginBottom" text="Sipariş Bilgileri"></Title> -->
 						<HBox class="sapUiTinyMarginBottom" renderType="Bare">
 							<Label text="Satıcı" class="sapUiTinyMarginEnd" />
 							<Text text="{application>Lifnr} {application>Name1}" />
@@ -62,14 +50,19 @@
 							<Label text="Satınalma grubu" class="sapUiTinyMarginEnd" />
 							<Text text=" {application>Ekgrp}" />
 						</HBox>
+						<HBox class="sapUiTinyMarginBottom" renderType="Bare">
+							<Label text="Oluşturan" class="sapUiTinyMarginEnd" />
+							<Text text="{application>CreatePoUname}" />
+						</HBox>
+
 					</VBox>
 				</HBox>
-
 
 				<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
 
 					<VBox class="sapUiSmallMarginBottom">
-						<Title class="sapUiTinyMarginBottom" text="Sözleşme Bilgileri"></Title>
+						<!-- <Title class="sapUiTinyMarginBottom" text="Satınalma bilgileri"></Title> -->
+
 						<HBox class="sapUiTinyMarginBottom" renderType="Bare">
 							<Label text="Sözleşme geçerlilik başlangıcı" class="sapUiTinyMarginEnd" />
 							<Text text="{ path : 'application>Kdatb' , type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" />
@@ -79,9 +72,44 @@
 							<Label text="Sözleşme geçerlilik bitişi" class="sapUiTinyMarginEnd" />
 							<Text text="{ path : 'application>Kdate' , type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" />
 						</HBox>
+
+						<HBox class="sapUiTinyMarginBottom" renderType="Bare">
+							<Label text="Oluşturma tarihi" class="sapUiTinyMarginEnd" />
+							<Text text="{ path : 'application>CreatePoDate' , type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" />
+						</HBox>
 					</VBox>
 				</HBox>
 
+ 
+				<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
+
+					<VBox class="sapUiSmallMarginBottom">
+						<!-- <Title class="sapUiTinyMarginBottom" text="Sözleşme Bilgileri"></Title> -->
+						<HBox class="sapUiTinyMarginBottom" renderType="Bare">
+							<!-- <ProgressIndicator
+							class="sapUiSmallMarginBottom"
+							percentValue="30"
+							displayValue="30%"
+							showValue="true"
+							state="None" /> -->
+							<!-- <mc:RadialMicroChart size="M" percentage="89" valueColor="Good" press="press" class="sapUiSmallMargin"></mc:RadialMicroChart>
+						    <mc:RadialMicroChart size="M" percentage="120" valueColor="Error" press="press" class="sapUiSmallMargin"></mc:RadialMicroChart> -->
+
+							
+							<!-- <mc2:SmartStackedBarMicroChart
+									id="defaultStacked"
+									entitySet="Revenues"
+									chartBindingPath="/Revenues"/> -->
+
+							<mc2:SmartComparisonMicroChart
+							id="defaultStacked"
+							entitySet="Revenues"
+							chartBindingPath="/Revenues"></mc2:SmartComparisonMicroChart> 
+							<!-- <mc:RadialMicroChart size="S" percentage="45" press="press" class="sapUiSmallMargin"></mc:RadialMicroChart> -->
+						</HBox>
+					</VBox>
+				</HBox> 
+	
 
 				<!-- 
 				<VBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
@@ -163,7 +191,7 @@
 					</VBox>
 				</VBox> -->
 			</HeaderContainer>
-
+			<Button text="Hakediş ekle" press="onPressAddServiceEntry" type="Emphasized" visible="true" icon="sap-icon://add" />
 		</uxap:headerContent>
 
 		<uxap:ObjectPageSection title="Hakediş bilgileri" titleUppercase="false" showTitle="false">
@@ -179,21 +207,20 @@
 										<form:content>
 
 											<core:Title text="Fatura Bilgileri" />
-
 											<Label text="Fatura Tarihi" class="sapUiTinyMarginEnd" />
-											<Text text="{ path : 'application>Budat' , type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" />
+											<Input value="{ path : 'application>Budat' , type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" editable="{application>UiConfig/EditFieldsActive}"/>
 											<Label text="Fatura No" class="sapUiTinyMarginEnd" />
-											<Text text=" {application>Xblnr}" />
+											<Input value=" {application>Xblnr}" editable="{application>UiConfig/EditFieldsActive}"/>
 											<Label text="Fatura Tutarı ?" class="sapUiTinyMarginEnd" />
-											<Text text=" {application>Xblnr}" />
+											<Input value=" {application>Xblnr}" editable="{application>UiConfig/EditFieldsActive}"/>
 
 											<core:Title text="Personel Bilgileri" />
-											<Label text="Personel No" class="sapUiTinyMarginEnd" />
-											<Text text=" {application>Pernr}" />
+											<Label text="Personel No" class="sapUiTinyMarginEnd"  />
+											<Input value=" {application>Pernr}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" editable="{application>UiConfig/EditFieldsActive}"/>
 											<Label text="Personel Adı Soyadı" class="sapUiTinyMarginEnd" />
-											<Text text=" {application>Sname}" />
-											<Label text="Organizasyon Tanımı" class="sapUiTinyMarginEnd" />
-											<Text text=" {application>Orgeh}" />
+											<Input value=" {application>Sname}"   editable="false" />
+											<Label text="Organizasyon Tanımı" class="sapUiTinyMarginEnd"/>
+											<Input value=" {application>Orgeh}"  editable="false" />
 
 										</form:content>
 									</form:SimpleForm>
@@ -205,7 +232,7 @@
 										<headerToolbar>
 											<OverflowToolbar>
 												<content>
-													<Button text="Hizmet ekle" press="onPressAddService" type="Emphasized" visible="false" icon="sap-icon://add" />
+													<Button text="Hizmet ekle" press="onPressAddServiceItem" type="Emphasized" icon="sap-icon://add" visible="{application>Details/results/0/UiConfig/AddButtonActive}"/> 
 													<ToolbarSpacer />
 												</content>
 											</OverflowToolbar>
@@ -236,17 +263,17 @@
 										<!-- <items> -->
 										<ColumnListItem>
 											<cells>
-												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
-												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
-												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
+												<Input value="{application>Srvpos}" editable="false" />
+												<Input value="{application>Ktext1}" editable="false" />
+												<Input value="{application>TotalAmount}" type="Number" editable="{application>UiConfig/EditFieldsActive}"  />
 
-												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
+												<Input value="{application>EntryAmount}" type="Number" editable="{application>UiConfig/EditFieldsActive}"  />
 
-												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
+												<Input value="{application>Menge}" type="Number" editable="{application>UiConfig/EditFieldsActive}" />
 
-												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
+												<Input value="{application>Brtwr}" editable="false" />
 
-												<Input value="" editable="{docModel>/Edit}" valueHelpRequest="onAccountHelpRequest" showValueHelp="true" change="onAccountChange" valueHelpOnly="false" />
+												<Input value="{application>Waers}" editable="false" />
 											</cells>
 										</ColumnListItem>
 										<!-- </items> -->
@@ -261,7 +288,9 @@
 								</Panel>
 
 								<Panel expandable="true" headerText="Ek ekleme">
-									<upload:UploadSet id="UploadSet" instantUpload="true" showIcons="false" uploadEnabled="false" terminationEnabled="true" fileTypes="txt,doc,png" maxFileNameLength="30" maxFileSize="200" mediaTypes="text/plain,application/msword,image/jpeg" uploadUrl="../../../../upload" items="{application>Files/results}" mode="MultiSelect" selectionChanged="onSelectionChange">
+									<upload:UploadSet id="UploadSet" instantUpload="true" showIcons="false" uploadEnabled="false" terminationEnabled="true" fileTypes="txt,doc,png" maxFileNameLength="30" maxFileSize="200"
+									 mediaTypes="text/plain,application/msword,image/jpeg" uploadUrl="../../../../upload" items="{application>Files/results}" 
+									 mode="MultiSelect" selectionChanged="onSelectionChange">
 										<!-- <upload:toolbar> -->
 											<!-- <OverflowToolbar> -->
 												<!-- <Button id="uploadSelectedButton" text="Upload selected" press="onUploadSelectedButton" />

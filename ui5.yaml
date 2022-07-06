@@ -11,10 +11,10 @@ server:
         baseUri: http://192.168.50.21:8000/sap/opu/odata/sap/ZMM_HAY_MANAGE_SRV/
         useStrictSSL: false
     - name: ui5-middleware-simpleproxy
-      mountPath: /sap/opu/odata/sap/ZABAP_VALUE_HELPER_SRV/
+      mountPath: /sap/opu/odata/sap/ZMM_HAY_VALUE_HELPER_SRV/
       afterMiddleware: compression
       configuration:
-        baseUri: http://192.168.50.21:8000/sap/opu/odata/sap/ZABAP_VALUE_HELPER_SRV/
+        baseUri: http://192.168.50.21:8000/sap/opu/odata/sap/ZMM_HAY_VALUE_HELPER_SRV/
         useStrictSSL: false
     - name: ui5-middleware-servestatic
       afterMiddleware: compression

@@ -1,4 +1,4 @@
-<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Master" height="100%" xmlns="sap.m" xmlns:f="sap.f" xmlns:mvc="sap.ui.core.mvc">
+<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Master" height="100%" xmlns="sap.m" xmlns:f="sap.f" xmlns:mvc="sap.ui.core.mvc" xmlns:l="sap.ui.layout" xmlns:mc="sap.suite.ui.microchart">
 	<f:DynamicPage id="dynamicPageId" toggleHeaderOnTitleClick="false" fitContent="true" class="sapUiNoContentPadding">
 
 		<f:title>
@@ -32,13 +32,29 @@
 					</firstStatus>
 					<secondStatus>
 						<ObjectStatus text="Miktarsal %80" state="Error" />
+
 					</secondStatus>
-					<ObjectAttribute text="{application>Name1}" />
-					<ObjectAttribute text="{application>Lifnr}" />
 
 					<!-- <ObjectAttribute text="{Width} x {Depth} x {Height} {DimUnit}" /> -->
 				</ObjectListItem>
+
 			</List>
+			<!-- <l:VerticalLayout
+			class="sapUiContentPadding"
+			width="100%">
+			<l:content>
+				<mc:RadialMicroChart size="M" percentage="45" press="press" class="sapUiSmallMargin"></mc:RadialMicroChart>
+				<mc:RadialMicroChart size="S" percentage="45" press="press" class="sapUiSmallMargin"></mc:RadialMicroChart>
+				<Text text="Regular Mode" class="sapUiSmallMarginBottom" />
+				<ProgressIndicator
+					class="sapUiSmallMarginBottom"
+					percentValue="30"
+					displayValue="30%"
+					showValue="true"
+					state="None" />
+				</l:content>
+			</l:VerticalLayout> -->
+
 		</f:content>
 
 		<!-- DynamicPage Footer -->

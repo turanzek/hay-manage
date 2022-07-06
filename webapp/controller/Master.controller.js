@@ -110,8 +110,6 @@ sap.ui.define(
         // }
       },
 
-
-
       onSort: function (oEvent) {
         this._bDescendingSort = !this._bDescendingSort;
         var oView = this.getView(),
