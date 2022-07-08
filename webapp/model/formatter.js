@@ -1,10 +1,23 @@
 sap.ui.define([
-	"sap/ui/base/ManagedObject"
-], function(
-	ManagedObject
-) {
+	"sap/ui/model/type/Currency"
+], function (Currency) {
 	"use strict";
 
-	return ManagedObject.extend("gubretas.mm.hay.model.formatter", {
-	});
+	return {
+
+		deleteLeadingZeros:function (value) {
+
+			if (value)
+			{
+				var lastValue = value.replace(/^0+/, '');
+			}
+			else
+			{
+				lastValue  = value; 
+			}
+		
+			return lastValue;
+		 }
+	};
 });
+

@@ -29,6 +29,10 @@
         ],
         "no-unreachable": [
             "warn"
+        ],
+        "no-mixed-spaces-and-tabs":
+        [
+            "off"
         ]
     },
     "extends": "eslint:recommended",

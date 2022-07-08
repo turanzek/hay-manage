@@ -27,13 +27,7 @@
 					</OverflowToolbar>
 				</headerToolbar>
 				<ObjectListItem title="SAS : {application>EbelnPo}" intro="Sözleşme : {application>EbelnContract}" type="Active" number="30.000 TRY"  detailPress="onListItemPress" press="onListItemPress">
-					<firstStatus>
-						<ObjectStatus text="Tutarsal %120" state="Success" />
-					</firstStatus>
-					<secondStatus>
-						<ObjectStatus text="Miktarsal %80" state="Error" />
 
-					</secondStatus>
 
 					<!-- <ObjectAttribute text="{Width} x {Depth} x {Height} {DimUnit}" /> -->
 				</ObjectListItem>

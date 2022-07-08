@@ -18,6 +18,7 @@ sap.ui.define(
     "sap/m/MessageToast",
     "sap/ui/core/format/DateFormat",
     "sap/ui/thirdparty/jquery",
+    "../model/formatter"
   ],
   function (
     JSONModel,
@@ -37,13 +38,15 @@ sap.ui.define(
     BusyIndicator,
     MessageToast,
     DateFormat,
-    jQuer
+    jQuer,
+    formatterx
   ) {
     "use strict";
 
     var ButtonType = library.ButtonType;
 
     return BaseController.extend("gubretas.mm.hay.controller.Detail", {
+      formatter: formatterx,
       onInit: function () {
         var oExitButton = this.getView().byId("exitFullScreenBtn"),
           oEnterButton = this.getView().byId("enterFullScreenBtn");
@@ -97,8 +100,7 @@ sap.ui.define(
         // });
 
         // oView.setModel(oModel, "selectionmodel");
-      },
-
+      }, 
       onPressAddServiceEntry: function (event) {
         //this.getView().getModel().setProperty("/Items(BookingId='123',ItemId='Fridge')")
 
@@ -122,29 +124,33 @@ sap.ui.define(
         // }];
 
         var model = this.getView().getBindingContext("application").getModel();
-        var bindingObject = this.getView()
-          .getBindingContext("application")
-          .getObject();
-        var path =
-          event.getSource().getBindingContext("application").getPath() +
-          "/ServiceEntries/results";
+        var bindingObject = this.getView().getBindingContext("application").getObject();
+        var path = event.getSource().getBindingContext("application").getPath() + "/ServiceEntries/results";
         var poService = bindingObject.ServiceEntries.results;
+
+        var sequenceNo  = (poService.length + 1).toString(); 
+
         poService.push({
-          Sequence: 5,
-		//   EditFieldsActive : true,
+          Sequence : sequenceNo,
+          Files:
+            {
+            results: [ 
+            ]
+          }
+          ,
           Details: {
             results: [
               {
                 UiConfig: {
                   AddButtonActive: true,
+                  UploadEditable: true,
                 },
                 ServiceEntryItems: [
                   {
-                    results: [
-                      {
-                        UiConfig: {
-							EditFieldsActive : true,
-                        },
+                    results: [ {
+                        UiConfig: { 
+                          EditFieldsActive  : true
+                         }
                       },
                     ],
                   },
@@ -152,6 +158,10 @@ sap.ui.define(
               },
             ],
           },
+
+          
+
+
         });
         model.setProperty(path, poService);
         model.refresh(true);
@@ -412,6 +422,8 @@ sap.ui.define(
 
                 this._oValueHelpDialog.getTableAsync().then(
                   function (oTable) {
+
+                    this.valueHelpTable = oTable;
                     oTable.setModel(this.valueHelpModel);
                     oTable.setModel(this.columnModel, "columns");
 
@@ -480,11 +492,29 @@ sap.ui.define(
             this._oInput.getBindingInfo("value").parts[0].path ===
             "Pernr"
           ) {
-            var path = this.getView().getBindingContext("application").getPath();
+          
+            var path = this._oInput.getBindingContext("application").getPath();
             var model = this.getView().getBindingContext("application").getModel();
             model.setProperty(path + "/Pernr", "");
-            model.setProperty(path + "/Orgeh", "");
-            // model.setProperty(path + "/Bklas", "");
+
+            var key = this._oInput.setValue(aTokens[0].getKey());
+            var aData = this.valueHelpTable.getModel().getData();
+            for (var index = 0; index < aData.length; index++) {
+
+              var aOrgeh =  aData[index];
+              if (aOrgeh.Key ===  aTokens[0].getKey() ) {
+                
+                var aOrgehValue =  aData[index].Value2; 
+                var aSnameValue =  aData[index].Value1; 
+              }
+              
+            
+            }
+            
+
+
+            model.setProperty(path + "/Orgeh", aOrgehValue);
+            model.setProperty(path + "/Sname", aSnameValue);
           }
 
           // if (this._oInput.getBindingInfo("value").parts[0].path === "Mtart") {
