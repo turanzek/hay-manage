@@ -52,8 +52,8 @@ sap.ui.define([
 			var hash = hashObject.getHash();
 
 			switch (true) {
-				case hash.includes("createRequest"):
-					var app = "createServis";
+				case hash.includes("createEntrySheet"):
+					var app = "createEntrySheet";
 					var title = "Hakediş Ekleme Süreci";
 					break;
 
@@ -70,8 +70,18 @@ sap.ui.define([
 			var oModel = new JSONModel();
 			this.setModel(oModel);
 
-			// var app = "createRequest";
-			// var title = "Malzeme Yaratma Talebi";
+			app = "createEntrySheet";
+			title = "Hakediş Ekleme Süreci";
+
+			this.getService("ShellUIService").then(
+				function (oService) {
+					oService.setTitle(title);
+				}.bind(this),
+				function (oError) {
+					jQuery.sap.log.error("Cannot get ShellUIService", oError);
+				}
+			);
+
 			
 			var model = new JSONModel();
 			this.setModel(model, "application");
@@ -85,7 +95,7 @@ sap.ui.define([
 				async: true,
 				filters: filters,
 				urlParameters: {
-					"$expand": ["DataModel", "DataModel/ApproveSteps", "DataModel/Items","DataModel/ServiceEntries","DataModel/Items/ServiceEntryItems","DataModel/ServiceEntries/Files","DataModel/ServiceEntries/Details/ServiceEntryItems"]
+					"$expand": ["DataModel", "DataModel/ApproveSteps", "DataModel/Items","DataModel/ServiceEntries","DataModel/Items/ServiceEntryItems","DataModel/ServiceEntries/Files","DataModel/ServiceEntries/ServiceEntryItems"]
 				},
 				success: function (data) {
 

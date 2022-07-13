@@ -6,7 +6,6 @@
     "test": "ui5 serve",
     "start": "npm run serve --port 8081",
     "deploy": "ui5 build --exclude-task escapeNonAsciiCharacters"
-    
   },
   "keywords": [],
   "author": "",

@@ -26,10 +26,14 @@
 					<Button text="Yeni Malzeme" icon="sap-icon://add" type="Transparent" press="onAdd" visible="{application>/UiModel/CreateActive}" />-->
 					</OverflowToolbar>
 				</headerToolbar>
-				<ObjectListItem title="SAS : {application>EbelnPo}" intro="Sözleşme : {application>EbelnContract}" type="Active" number="30.000 TRY"  detailPress="onListItemPress" press="onListItemPress">
+				<ObjectListItem title="SAS {application>EbelnPo}" type="Active" number="{ parts : ['application>Items/results/0/Brtwr','application>Items/results/0/Waers' ] }" detailPress="onListItemPress" press="onListItemPress">
 
+					<firstStatus>
+						<ObjectStatus state="{application>UiConfig/StatusState}" text="{application>UiConfig/StatusText}" title="{application>StatusText}"></ObjectStatus>
+					</firstStatus>
 
-					<!-- <ObjectAttribute text="{Width} x {Depth} x {Height} {DimUnit}" /> -->
+					<ObjectAttribute text="Sözleşme {application>EbelnContract}" />
+					<ObjectAttribute text="{application>Items/results/0/MatklDescription}" />
 				</ObjectListItem>
 
 			</List>

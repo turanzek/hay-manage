@@ -13,6 +13,8 @@ sap.ui.define(
     "sap/m/Button",
     "sap/m/library",
     "sap/m/TextArea",
+    "sap/m/StandardListItem",
+    "sap/m/Column",
     "sap/base/util/uid",
     "sap/ui/core/BusyIndicator",
     "sap/m/MessageToast",
@@ -34,6 +36,8 @@ sap.ui.define(
     Button,
     library,
     TextArea,
+    StandardListItem,
+    Column,
     uid,
     BusyIndicator,
     MessageToast,
@@ -62,15 +66,15 @@ sap.ui.define(
           .attachPatternMatched(this._onMasterMatched, this);
 
         /* 		[oExitButton, oEnterButton].forEach(function (oButton) {
-				oButton.addEventDelegate({
-					onAfterRendering: function () {
-						if (this.bFocusFullScreenButton) {
-							this.bFocusFullScreenButton = false;
-							oButton.focus();
-						}
-					}.bind(this)
-				});
-			}, this); */
+        oButton.addEventDelegate({
+          onAfterRendering: function () {
+            if (this.bFocusFullScreenButton) {
+              this.bFocusFullScreenButton = false;
+              oButton.focus();
+            }
+          }.bind(this)
+        });
+      }, this); */
 
         this.columnModel = new JSONModel(
           sap.ui.require.toUrl("gubretas/mm/hay/json") + "/columnsModel.json"
@@ -100,89 +104,76 @@ sap.ui.define(
         // });
 
         // oView.setModel(oModel, "selectionmodel");
-      }, 
+      },
       onPressAddServiceEntry: function (event) {
-        //this.getView().getModel().setProperty("/Items(BookingId='123',ItemId='Fridge')")
-
-        // var oEntry = {};
-        // oEntry = this.getView().getModel("application").getData();
-        // oEntry.ActionType = type;
-        // oEntry.Revisions = [{
-
-        // 	Id: subHeader.Id,
-        // 	Dokno: subHeader.Dokno,
-        // 	Rno: subHeader.Rno,
-        // 	DokTarih: subHeader.DokTarih,
-        // 	Rstatus: subHeader.Rstatus,
-        // 	Statu: subHeader.Statu,
-        // 	TraPk: subHeader.TraPk,
-        // 	TraYuk: subHeader.TraYuk,
-        // 	Tra: subHeader.Tra,
-        // 	TraAlici: subHeader.TraAlici,
-        // 	TraNo: subHeader.TraNo
-
-        // }];
 
         var model = this.getView().getBindingContext("application").getModel();
         var bindingObject = this.getView().getBindingContext("application").getObject();
-        var path = event.getSource().getBindingContext("application").getPath() + "/ServiceEntries/results";
-        var poService = bindingObject.ServiceEntries.results;
+        var mainPath = event.getSource().getBindingContext("application").getPath()
+        var path = mainPath + "/ServiceEntries/results";
+        var servicesEntries = bindingObject.ServiceEntries.results;
 
-        var sequenceNo  = (poService.length + 1).toString(); 
+        var sequenceNo = (servicesEntries.length + 1).toString();
 
-        poService.push({
-          Sequence : sequenceNo,
+        servicesEntries.push({
+          Sequence: sequenceNo,
           Files:
-            {
-            results: [ 
-            ]
-          }
-          ,
-          Details: {
+          {
             results: [
-              {
-                UiConfig: {
-                  AddButtonActive: true,
-                  UploadEditable: true,
-                },
-                ServiceEntryItems: [
-                  {
-                    results: [ {
-                        UiConfig: { 
-                          EditFieldsActive  : true
-                         }
-                      },
-                    ],
-                  },
-                ],
-              },
-            ],
+            ]
           },
-
-          
-
-
+          UiConfig: {
+            PanelExpandedActive: true,
+            AddButtonActive: true,
+            UploadEditable: true,
+            StatusState: "Warning",
+            StatusText: "İşleniyor"
+          },
+          ServiceEntryItems: [
+            {
+              results: [{
+                UiConfig: {
+                  EditFieldsActive: true
+                }
+              },
+              ],
+            },
+          ]
         });
-        model.setProperty(path, poService);
+
+        model.setProperty(path, servicesEntries);
+        model.setProperty(mainPath + "/UiConfig/AddSheetActive", false);
         model.refresh(true);
       },
 
+      onPressCancel: function (event) {
+        var model = this.getView().getBindingContext("application").getModel();
+        var bindingObject = this.getView().getBindingContext("application").getObject();
+        var mainPath = this.getView().getBindingContext("application").getPath();
+        var path = mainPath + "/ServiceEntries/results";
+
+        var servicesEntries = bindingObject.ServiceEntries.results;
+
+        servicesEntries.pop();
+
+        model.setProperty(path, servicesEntries);
+        model.setProperty(mainPath + "/UiConfig/AddSheetActive", true);
+        model.refresh(true);
+      },
       onPressAddServiceItem: function (event) {
         var model = this.getView().getBindingContext("application").getModel();
-        var bindingObject = this.getView()
-          .getBindingContext("application")
-          .getObject();
-        var path =
-          event.getSource().getBindingContext("application").getPath() +
-          "/Details/results/0/ServiceEntryItems/results";
-        var poServiceItems =
-          bindingObject.Items.results[0].ServiceEntryItems.results;
+
+        var bindingObject = this.getView().getBindingContext("application").getObject();
+
+        var path = event.getSource().getBindingContext("application").getPath() + "/ServiceEntryItems/results";
+
+        var poServiceItems = bindingObject.Items.results[0].ServiceEntryItems.results;
 
         for (var index = 0; index < poServiceItems.length; index++) {
-			var element = poServiceItems[index];
-			element.UiConfig.EditFieldsActive = true;	
-		}
-		
+          var element = poServiceItems[index];
+          element.UiConfig.EditFieldsActive = true;
+        }
+
         model.setProperty(path, poServiceItems);
         model.refresh(true);
       },
@@ -259,8 +250,8 @@ sap.ui.define(
       },
       handleItemPress: function (oEvent) {
         var oNextUIState = this.getOwnerComponent()
-            .getHelper()
-            .getNextUIState(2),
+          .getHelper()
+          .getNextUIState(2),
           supplierPath = oEvent
             .getSource()
             .getSelectedItem()
@@ -409,7 +400,7 @@ sap.ui.define(
             //   }
             // }
 
-            
+
 
             var parameters = {
               async: true,
@@ -419,35 +410,61 @@ sap.ui.define(
               },
               success: function (data) {
                 this.valueHelpModel.setData(data.results[0].Values.results);
+                // this._oValueHelpDialog.setModel(this.valueHelpModel);
+                // // this._oValueHelpDialog.bindAggregation("items", "/");
 
-                this._oValueHelpDialog.getTableAsync().then(
-                  function (oTable) {
+                // if (this._oValueHelpDialog.bindItems) {
+                //   this._oValueHelpDialog.bindAggregation("items", "/", function () {
+                //     return new StandardListItem({
+                //       cells: aCols.map(function (column) {
+                //         return new Label({
+                //           text: "{" + column.template + "}",
+                //         });
+                //       }),
+                //     });
+                //   });
+                // }
 
-                    this.valueHelpTable = oTable;
-                    oTable.setModel(this.valueHelpModel);
-                    oTable.setModel(this.columnModel, "columns");
 
-                    if (oTable.bindRows) {
-                      oTable.bindAggregation("rows", "/");
-                    }
+                // this._oValueHelpDialog.getTableAsync().then(
+                //   function (oTable) {
 
-                    if (oTable.bindItems) {
-                      oTable.bindAggregation("items", "/", function () {
-                        return new ColumnListItem({
-                          cells: aCols.map(function (column) {
-                            return new Label({
-                              text: "{" + column.template + "}",
-                            });
-                          }),
+                // this.valueHelpTable = oTable;
+                this._oValueHelpDialog.setModel(this.valueHelpModel);
+                this._oValueHelpDialog.setModel(this.columnModel, "columns");
+
+                if (this._oValueHelpDialog.bindRows) {
+                  this._oValueHelpDialog.bindAggregation("rows", "/");
+                }
+
+                if (this._oValueHelpDialog.bindColumns) {
+                  this._oValueHelpDialog.bindColumns("columns>/cols", function () {
+                    return new Column({
+                      header: new Label({
+                        text: "{columns>label}",
+                      }),
+                    });
+                  });
+                }
+
+                if (this._oValueHelpDialog.bindItems) {
+                  this._oValueHelpDialog.bindItems("/", function () {
+                    return new ColumnListItem({
+                      cells: aCols.map(function (column) {
+                        return new Label({
+                          text: "{" + column.template + "}",
                         });
-                      });
-                    }
+                      }),
+                    });
+                  });
+                }
 
-                    this._oValueHelpDialog.update();
+                // this._oValueHelpDialog.update();
 
-                    busyDialog.close();
-                  }.bind(this)
-                );
+                busyDialog.close();
+
+                // }.bind(this)
+                // );
               }.bind(this),
               error: function (error) {
                 busyDialog.close();
@@ -458,10 +475,10 @@ sap.ui.define(
               .getModel("valueModel")
               .read("/ValueHelpSet", parameters);
 
-            var oToken = new Token();
-            oToken.setKey(this._oInput.getSelectedKey());
-            oToken.setText(this._oInput.getValue());
-            this._oValueHelpDialog.setTokens([oToken]);
+            // var oToken = new Token();
+            // oToken.setKey(this._oInput.getSelectedKey());
+            // oToken.setText(this._oInput.getValue());
+            // this._oValueHelpDialog.setTokens([oToken]);
 
             var title = "";
 
@@ -483,35 +500,32 @@ sap.ui.define(
       },
 
       onValueHelpOkPress: function (oEvent) {
-        var aTokens = oEvent.getParameter("tokens");
+        // var aTokens = oEvent.getParameter("tokens");
+        var objects = oEvent.getParameters().selectedContexts[0].getObject()
 
-        if (aTokens.length > 0) {
-          this._oInput.setValue(aTokens[0].getKey());
+        if (objects.Key) {
+          this._oInput.setValue(objects.Key);
 
           if (
             this._oInput.getBindingInfo("value").parts[0].path ===
             "Pernr"
           ) {
-          
+
             var path = this._oInput.getBindingContext("application").getPath();
             var model = this.getView().getBindingContext("application").getModel();
             model.setProperty(path + "/Pernr", "");
 
-            var key = this._oInput.setValue(aTokens[0].getKey());
-            var aData = this.valueHelpTable.getModel().getData();
+            var key = this._oInput.setValue(objects.Key);
+            var aData = this.valueHelpModel.getData();
             for (var index = 0; index < aData.length; index++) {
 
-              var aOrgeh =  aData[index];
-              if (aOrgeh.Key ===  aTokens[0].getKey() ) {
-                
-                var aOrgehValue =  aData[index].Value2; 
-                var aSnameValue =  aData[index].Value1; 
+              var aOrgeh = aData[index];
+              if (aOrgeh.Key === objects.Key) {
+                var aOrgehValue = aData[index].Value2;
+                var aSnameValue = aData[index].Value1;
               }
-              
-            
-            }
-            
 
+            }
 
             model.setProperty(path + "/Orgeh", aOrgehValue);
             model.setProperty(path + "/Sname", aSnameValue);
@@ -787,12 +801,12 @@ sap.ui.define(
           key: "slug",
           text: encodeURIComponent(
             oItemToUpload.getFileName() +
-              ";" +
-              bindingObject.RequestNo +
-              ";" +
-              bindingObject.Matnr +
-              ";" +
-              this.FileGuid
+            ";" +
+            bindingObject.RequestNo +
+            ";" +
+            bindingObject.Matnr +
+            ";" +
+            this.FileGuid
           ),
         });
 
@@ -880,10 +894,55 @@ sap.ui.define(
       handleDetailsPress: function (oEvent) {
         MessageToast.show(
           "Details for product with id " +
-            this.getView()
-              .getModel()
-              .getProperty("ProductId", oEvent.getSource().getBindingContext())
+          this.getView()
+            .getModel()
+            .getProperty("ProductId", oEvent.getSource().getBindingContext())
         );
+      },
+      onFilterBarSearch: function (oEvent) {
+        var sSearchQuery = this._oBasicSearchField.getValue(),
+          aSelectionSet = oEvent.getParameter("selectionSet");
+        var aFilters = aSelectionSet.reduce(function (aResult, oControl) {
+          if (oControl.getValue()) {
+            aResult.push(new Filter({
+              path: oControl.getName(),
+              operator: FilterOperator.Contains,
+              value1: oControl.getValue()
+            }));
+          }
+
+          return aResult;
+        }, []);
+
+        aFilters.push(new Filter({
+          filters: [
+            new Filter({ path: "ProductId", operator: FilterOperator.Contains, value1: sSearchQuery }),
+            new Filter({ path: "Name", operator: FilterOperator.Contains, value1: sSearchQuery }),
+            new Filter({ path: "Category", operator: FilterOperator.Contains, value1: sSearchQuery })
+          ],
+          and: false
+        }));
+
+        this._filterTable(new Filter({
+          filters: aFilters,
+          and: true
+        }));
+      },
+
+      _filterTable: function (oFilter) {
+        var oValueHelpDialog = this._oValueHelpDialog;
+
+        oValueHelpDialog.getTableAsync().then(function (oTable) {
+          if (oTable.bindRows) {
+            oTable.getBinding("rows").filter(oFilter);
+          }
+
+          if (oTable.bindItems) {
+            oTable.getBinding("items").filter(oFilter);
+          }
+
+          oValueHelpDialog.update();
+        });
       },
     });
   }

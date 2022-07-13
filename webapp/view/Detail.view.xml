@@ -1,5 +1,4 @@
-<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Detail" height="100%"	xmlns:uxap="sap.uxap" xmlns:micro="sap.suite.ui.microchart"	xmlns:mc2="sap.ui.comp.smartmicrochart" xmlns:mc="sap.suite.ui.microchart" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc"  xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:f="sap.f" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table" xmlns:u="sap.ui.unified" xmlns:table="sap.ui.table"
-	xmlns:upload="sap.m.upload">
+<mvc:View displayBlock="true" controllerName="gubretas.mm.hay.controller.Detail" height="100%" xmlns:uxap="sap.uxap" xmlns:micro="sap.suite.ui.microchart" xmlns:mc2="sap.ui.comp.smartmicrochart" xmlns:mc="sap.suite.ui.microchart" xmlns:l="sap.ui.layout" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:f="sap.f" xmlns:core="sap.ui.core" xmlns:t="sap.ui.table" xmlns:u="sap.ui.unified" xmlns:table="sap.ui.table" xmlns:upload="sap.m.upload">
 	<uxap:ObjectPageLayout id="ObjectPageLayout" showTitleInHeaderContent="true" alwaysShowContentHeader="false" preserveHeaderStateOnScroll="false" headerContentPinnable="true" isChildPage="true" upperCaseAnchorBar="false" showFooter="true">
 		<uxap:headerTitle>
 			<uxap:ObjectPageDynamicHeaderTitle>
@@ -84,30 +83,52 @@
 
 				<HBox class="sapUiSmallMarginEnd sapUiSmallMarginBottom">
 
-					<VBox class="sapUiSmallMarginBottom">
+					<VBox class="sapUiSmallMarginBottom sapUiSmallMarginEnd">
 						<!-- <Title class="sapUiTinyMarginBottom" text="Sözleşme Bilgileri"></Title> -->
 						<HBox class="sapUiTinyMarginBottom" renderType="Bare">
 							<!-- <ProgressIndicator class="sapUiSmallMarginBottom" percentValue="30" displayValue="30%" showValue="true" state="None" /> -->
 							<!-- <mc:RadialMicroChart size="M" percentage="89" valueColor="Good" press="press" class="sapUiSmallMargin"></mc:RadialMicroChart>
 						    <mc:RadialMicroChart size="M" percentage="120" valueColor="Error" press="press" class="sapUiSmallMargin"></mc:RadialMicroChart> -->
 
-							<FlexBox height="90px" width="170px" renderType="Bare">
+							<FlexBox height="30px" width="170px" renderType="Bare">
 
-								<mc:ComparisonMicroChart size="S" scale="%" class="sapUiSmallMargin" >
+								<mc:ComparisonMicroChart size="L" scale="%" class="sapUiNoMargin" height="30px">
 									<mc:data>
-										<mc:ComparisonMicroChartData	title="Tutarsal" value="application>Details/results/0/AmountPercent" color="{=  ${application>Details/results/0/AmountPercent}  > 100 ? 'Error'  : 'Good'  }"/>
-										<mc:ComparisonMicroChartData	title="Miktarsal" value="application>Details/results/0/QuantityPercent" color="{=  ${application>Details/results/0/QuantityPercent}  > 100 ? 'Error'  : 'Good'  }" />
+										<mc:ComparisonMicroChartData title="Tutarsal" displayValue="{application>Items/results/0/AmountPercent}"  value="{application>Items/results/0/AmountPercent}" color="{=  ${application>Items/results/0/AmountPercent}  > 100 ? 'Error'  : 'Good'  }" />
+
 									</mc:data>
 								</mc:ComparisonMicroChart>
 							</FlexBox>
 
 						</HBox>
+
+
+					</VBox>
+
+					<VBox class="sapUiSmallMarginBottom">
+
+						<HBox class="sapUiTinyMarginBottom" renderType="Bare">
+							<!-- <ProgressIndicator class="sapUiSmallMarginBottom" percentValue="30" displayValue="30%" showValue="true" state="None" /> -->
+							<!-- <mc:RadialMicroChart size="M" percentage="89" valueColor="Good" press="press" class="sapUiSmallMargin"></mc:RadialMicroChart>
+						<mc:RadialMicroChart size="M" percentage="120" valueColor="Error" press="press" class="sapUiSmallMargin"></mc:RadialMicroChart> -->
+
+							<FlexBox height="30px" width="170px" renderType="Bare">
+
+								<mc:ComparisonMicroChart size="L" scale="%" class="sapUiNoMargin" height="30px">
+									<mc:data>
+										<mc:ComparisonMicroChartData title="Miktarsal" value="{application>Items/results/0/QuantityPercent}" color="{=  ${application>Items/results/0/QuantityPercent}  > 100 ? 'Error'  : 'Good'  }" />
+									</mc:data>
+								</mc:ComparisonMicroChart>
+							</FlexBox>
+
+						</HBox>
+
 					</VBox>
 				</HBox>
 
 
 			</HeaderContainer>
-			<Button text="Hakediş ekle" press="onPressAddServiceEntry" type="Emphasized" visible="true" icon="sap-icon://add" />
+			<Button text="Hakediş ekle" press="onPressAddServiceEntry" type="Emphasized" icon="sap-icon://add" visible="{application>UiConfig/AddSheetActive}" />
 		</uxap:headerContent>
 
 		<uxap:ObjectPageSection title="Hakediş bilgileri" titleUppercase="false" showTitle="false">
@@ -115,33 +136,50 @@
 				<uxap:ObjectPageSubSection showTitle="false">
 					<uxap:blocks>
 						<VBox items="{application>ServiceEntries/results}">
-							<!-- {application>Details/0/UiConfig/ExpandActive} -->
-							<Panel expandable="true" expanded="false" headerText="Hakediş {
-								parts: [
-							{ path:	'application>Sequence'} ],
-							formatter:'.formatter.deleteLeadingZeros'
-							
-							}" width="auto" class="sapUiSizeCompact " >
-							<Button type="Accept" text="Kaydet" fieldGroupIds="Approve" press="onPressAction" visible="{application>UiConfig/EditFieldsActive}" ></Button>
+							<Panel expandable="true" expanded="{application>UiConfig/PanelExpandedActive}" width="auto" class="sapUiSizeCompact ">
 
-								<Panel  headerText="Fatura Bilgileri">
+								<headerToolbar>
+									<OverflowToolbar>
+										<Title text="Hakediş {
+											parts: [
+										{ path:	'application>Sequence'} ],
+										formatter:'.formatter.deleteLeadingZeros'
+										}"></Title>
+
+
+										<ObjectStatus state="{application>UiConfig/StatusState}" text="{application>UiConfig/StatusText}"></ObjectStatus>
+
+										<ToolbarSpacer />
+										<Button type="Reject" text="İptal" press="onPressCancel" visible="{application>UiConfig/EditFieldsActive}"></Button>
+										<Button type="Accept" text="Kaydet" fieldGroupIds="Send" press="onPressAction" visible="{application>UiConfig/EditFieldsActive}"></Button>
+									</OverflowToolbar>
+								</headerToolbar>
+
+
+								<Panel headerText="Fatura Bilgileri">
 
 									<form:SimpleForm maxContainerCols="2" class="formHiddenTitle" editable="true" layout="ResponsiveGridLayout" emptySpanL="0" emptySpanM="0" columnsL="2" columnsM="2">
 										<form:content>
 
 											<core:Title text="Fatura Bilgileri" />
 											<Label text="Fatura Tarihi" class="sapUiTinyMarginEnd" />
-											<Input value="{ path : 'application>Budat' , type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" editable="{application>UiConfig/EditFieldsActive}" required="true"/>
-											<Label text="Fatura No" class="sapUiTinyMarginEnd" />
-											<Input value=" {application>Xblnr}" editable="{application>UiConfig/EditFieldsActive}" required="true"/>
-											<Label text="Fatura Tutarı ?" class="sapUiTinyMarginEnd" />
-											<Input value=" {application>Xblnr}" editable="{application>UiConfig/EditFieldsActive}" required="true"/>
 
+											<DatePicker value="{ path : 'application>Budat' , type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" editable="{application>UiConfig/EditFieldsActive}" required="true" />
+											<Label text="Fatura No" class="sapUiTinyMarginEnd" />
+											<Input value="{application>Xblnr}" editable="{application>UiConfig/EditFieldsActive}" required="true" />
+											<Label text="Fatura Tutarı" class="sapUiTinyMarginEnd" />
+
+											<HBox>
+												<Input value="{application>Lwert}" editable="{application>UiConfig/EditFieldsActive}" required="true" type="Number" />
+												<Text class="sapUiTinyMarginBegin" text="{application>Waers}" />
+											</HBox>
 											<core:Title text="Personel Bilgileri" />
 											<Label text="Personel No" class="sapUiTinyMarginEnd" />
-											<Input value=" {application>Pernr}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" editable="{application>UiConfig/EditFieldsActive}"/>
+											<Input value=" {application>Pernr}" showValueHelp="true" valueHelpOnly="true" valueHelpRequest=".onValueHelpRequested" required="true" editable="{application>UiConfig/EditFieldsActive}" />
+
 											<Label text="Personel Adı Soyadı" class="sapUiTinyMarginEnd" />
 											<Input value=" {application>Sname}" editable="false" />
+
 											<Label text="Organizasyon Tanımı" class="sapUiTinyMarginEnd" />
 											<Input value=" {application>Orgeh}" editable="false" />
 
@@ -151,11 +189,11 @@
 								</Panel>
 
 								<Panel expandable="false" headerText="Hizmetler">
-									<Table inset="false" items="{application>Details/results/0/ServiceEntryItems/results}" mode="None" delete="onDeleteService">
+									<Table inset="false" items="{application>ServiceEntryItems/results}" mode="None" delete="onDeleteService">
 										<headerToolbar>
 											<OverflowToolbar>
 												<content>
-													<Button text="Hizmet ekle" press="onPressAddServiceItem" type="Emphasized" icon="sap-icon://add" visible="{application>Details/results/0/UiConfig/AddButtonActive}"/>
+													<Button text="Hizmet ekle" press="onPressAddServiceItem" type="Emphasized" icon="sap-icon://add" visible="{application>UiConfig/AddButtonActive}" />
 													<ToolbarSpacer />
 												</content>
 											</OverflowToolbar>
@@ -188,11 +226,11 @@
 											<cells>
 												<Input value="{application>Srvpos}" editable="false" />
 												<Input value="{application>Ktext1}" editable="false" />
-												<Input value="{application>TotalAmount}" type="Number" editable="{application>UiConfig/EditFieldsActive}" required="true"/>
+												<Input value="{application>TotalAmount}" type="Number" editable="{application>UiConfig/EditFieldsActive}" required="true" />
 
-												<Input value="{application>EntryAmount}" type="Number" editable="{application>UiConfig/EditFieldsActive}"  required="true"/>
+												<Input value="{application>EntryAmount}" type="Number" editable="{application>UiConfig/EditFieldsActive}" required="true" />
 
-												<Input value="{application>Menge}" type="Number" editable="{application>UiConfig/EditFieldsActive}"  required="true"/>
+												<Input value="{application>Menge}" type="Number" editable="{application>UiConfig/EditFieldsActive}" required="true" />
 
 												<Input value="{application>Brtwr}" editable="false" />
 
@@ -205,36 +243,19 @@
 								</Panel>
 
 
-								<Panel headerText="Açıklamalar">
-									<TextArea value="Lorem ipsum dolor st amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat" rows="4" width="60em" />
+								<Panel headerText="Açıklama">
+									<TextArea value="{application>Description}" rows="2" width="100%" />
 
 								</Panel>
 
-								<Panel  headerText="Ek ekleme">
-										<upload:UploadSet id="UploadSet" instantUpload="false" noDataText="Dosya yüklenmedi"
-										 noDataDescription="Sürükleyip bırakarak ya da dosya yükle butonnunu kullanarak dosya yükleyebilirsiniz." terminationEnabled="false" maxFileNameLength="55" 
-										 beforeUploadStarts="onBeforeUploadStarts" uploadCompleted="onUploadCompleted" class="sapUiResponsiveMargin" 
-										 items="{application>Files/results}" uploadUrl="/sap/opu/odata/sap/ZMM_MAY_MANAGE_SRV/FilesSet" uploadEnabled="{application>Details/results/0/UiConfig/UploadEditable}" >
-						<upload:items>
-							<upload:UploadSetItem fileName="{application>FileName}" mediaType="{application>MimeType}" url="{application>FileUrl}" enabledEdit="{application>Editable}" enabledRemove="{application>Editable}"></upload:UploadSetItem>
-						</upload:items>
-					</upload:UploadSet>
+								<Panel headerText="Ekler">
+									<upload:UploadSet id="UploadSet" instantUpload="false" noDataText="Dosya yüklenmedi" noDataDescription="Sürükleyip bırakarak ya da dosya yükle butonnunu kullanarak dosya yükleyebilirsiniz." terminationEnabled="false" maxFileNameLength="55" beforeUploadStarts="onBeforeUploadStarts" uploadCompleted="onUploadCompleted" class="sapUiResponsiveMargin" items="{application>Files/results}" uploadUrl="/sap/opu/odata/sap/ZMM_MAY_MANAGE_SRV/FilesSet" uploadEnabled="{application>UiConfig/UploadEditable}">
+										<upload:items>
+											<upload:UploadSetItem fileName="{application>FileName}" mediaType="{application>MimeType}" url="{application>FileUrl}" enabledEdit="{application>Editable}" enabledRemove="{application>Editable}"></upload:UploadSetItem>
+										</upload:items>
+									</upload:UploadSet>
 								</Panel>
 
-
-								<!-- <Panel expandable="true" width="auto" class="sapUiSizeCompact myCustomPanel">
-									<headerToolbar>
-										<OverflowToolbar active="true" press="onOverflowToolbarPress">
-											<Title text="Hakediş 1 Açıklamalar" />
-											<ToolbarSpacer />
-											<Button icon="sap-icon://settings" />
-											<Button icon="sap-icon://drop-down-list" />
-										</OverflowToolbar>
-									</headerToolbar>
-									<content>
-							
-									</content>
-								</Panel> -->
 							</Panel>
 
 						</VBox>
@@ -244,8 +265,8 @@
 		</uxap:ObjectPageSection>
 
 		<uxap:footer>
-			<OverflowToolbar >
-			<!-- visible="{= ${application>UiConfig/SendActive} === true ||
+			<OverflowToolbar>
+				<!-- visible="{= ${application>UiConfig/SendActive} === true ||
 				${application>UiConfig/ApproveActive} === true ||
 				${application>UiConfig/RejectActive} === true ||
 				${application>UiConfig/ReviewActive} === true 
@@ -255,11 +276,12 @@
 
 				<!-- <Button type="Ghost" text="Gönder" fieldGroupIds="Send"  press="onPressAction"></Button> -->
 				<Button type="Accept" text="Onayla" fieldGroupIds="Approve" press="onPressAction"></Button>
-				<Button type="Reject" text="Reddet" fieldGroupIds="Reject"  press="onPressAction"></Button>
+				<Button type="Reject" text="Reddet" fieldGroupIds="Reject" press="onPressAction"></Button>
+
 				<!-- <Button type="Attention" text="Gözden Geçir" fieldGroupIds="Review" press="onPressAction"></Button> -->
 			</OverflowToolbar>
 		</uxap:footer>
 	</uxap:ObjectPageLayout>
 
-	
+
 </mvc:View>

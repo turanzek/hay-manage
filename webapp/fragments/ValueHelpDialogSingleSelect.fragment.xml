@@ -1,13 +1,14 @@
-<core:FragmentDefinition
-	xmlns="sap.ui.comp.valuehelpdialog"
-	xmlns:core="sap.ui.core">
-	<ValueHelpDialog
-		title="Değer seçiniz"
-		ok=".onValueHelpOkPress"
-		cancel=".onValueHelpCancelPress"
-		afterClose=".onValueHelpAfterClose"
-		supportMultiselect="false"
-		descriptionKey="Value1"
-		key="Key">
-	</ValueHelpDialog>
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar">
+
+	<TableSelectDialog class="sapUiPopupWithPadding" search="onSearchValueHelp" confirm="onValueHelpOkPress" cancel="onValueHelpCancelPress"  noDataText="Veri yok" title="Değer seçiniz">
+		<!-- <StandardListItem title="{ERNAM>Value}" info="{ERNAM>Key}" /> -->
+	</TableSelectDialog>
+
+	<!-- xmlns="sap.ui.comp.valuehelpdialog" <ValueHelpDialog title="Değer seçiniz" ok=".onValueHelpOkPress" cancel=".onValueHelpCancelPress" afterClose=".onValueHelpAfterClose" supportMultiselect="false" descriptionKey="Value1" key="Key">
+		<filterBar>
+			<fb:FilterBar advancedMode="true" search=".onFilterBarSearch" isRunningInValueHelpDialog="true"></fb:FilterBar>
+		</filterBar>
+	</ValueHelpDialog> -->
+
+
 </core:FragmentDefinition>
