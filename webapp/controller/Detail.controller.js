@@ -65,45 +65,26 @@ sap.ui.define(
           .getRoute("detailDetail")
           .attachPatternMatched(this._onMasterMatched, this);
 
-        /* 		[oExitButton, oEnterButton].forEach(function (oButton) {
-        oButton.addEventDelegate({
-          onAfterRendering: function () {
-            if (this.bFocusFullScreenButton) {
-              this.bFocusFullScreenButton = false;
-              oButton.focus();
-            }
-          }.bind(this)
-        });
-      }, this); */
 
         this.columnModel = new JSONModel(
           sap.ui.require.toUrl("gubretas/mm/hay/json") + "/columnsModel.json"
         );
         this.valueHelpModel = new JSONModel();
 
-        // var oJSONModel = this.initSampleDataModel();
-        // var oView = this.getView();
-        // oView.setModel(oJSONModel);
-
-        // var aSelectionModes = [];
-        // jQuery.each(SelectionMode, function(k, v){
-        // 	if (k != SelectionMode.Multi) {
-        // 		aSelectionModes.push({key: k, text: v});
-        // 	}
-        // });
-
-        // var aSelectionBehaviors = [];
-        // jQuery.each(SelectionBehavior, function(k, v){
-        // 	aSelectionBehaviors.push({key: k, text: v});
-        // });
-
-        // // create JSON model instance
-        // var oModel = new JSONModel({
-        // 	"selectionitems": aSelectionModes,
-        // 	"behavioritems": aSelectionBehaviors
-        // });
-
-        // oView.setModel(oModel, "selectionmodel");
+      },
+      onAfterRendering: function () {
+        // var uiConfig = this.getModel("application").getProperty("UiConfig")
+        // var formBasisView = this.byId("formBasisView");
+        // var formMipView = this.byId("formMipView");
+        // var formPurchaseView = this.byId("formPurchaseView");
+        // var items = formBasisView.getContent()
+        // for (var i = 0; i < items.length; i++) {
+        // 	var item = items[i];
+        // 	// item.setVisib
+        // }
+        // uiConfig.BasisViewEditable
+        // uiConfig.MipViewEditable
+        // uiConfig.PurchaseViewEditable
       },
       onPressAddServiceEntry: function (event) {
 
@@ -142,6 +123,7 @@ sap.ui.define(
           Meins: bindingObject.Items.results[0].Meins,
           Matkl: "",
           Netpr: "0.00",
+          Final: false,
           // CreateDate: "",
           // CreateUzeit: "",
           CreateUname: "",
@@ -164,7 +146,8 @@ sap.ui.define(
             FinalButtonActive: false,
             EditFieldsActive: true,
             StatusState: "Warning",
-            StatusText: "İşleniyor"
+            StatusText: "İşleniyor",
+            PrintButtonActive:false
           },
           ServiceEntryItems: [
             {
@@ -210,20 +193,7 @@ sap.ui.define(
         model.setProperty(path, poServiceItems);
         model.refresh(true);
       },
-      onAfterRendering: function () {
-        // var uiConfig = this.getModel("application").getProperty("UiConfig")
-        // var formBasisView = this.byId("formBasisView");
-        // var formMipView = this.byId("formMipView");
-        // var formPurchaseView = this.byId("formPurchaseView");
-        // var items = formBasisView.getContent()
-        // for (var i = 0; i < items.length; i++) {
-        // 	var item = items[i];
-        // 	// item.setVisib
-        // }
-        // uiConfig.BasisViewEditable
-        // uiConfig.MipViewEditable
-        // uiConfig.PurchaseViewEditable
-      },
+
       handleFullScreen: function () {
         this.bFocusFullScreenButton = true;
         var sNextLayout = this.oModel.getProperty(
@@ -333,26 +303,7 @@ sap.ui.define(
               },
               success: function (data) {
                 this.valueHelpModel.setData(data.results[0].Values.results);
-                // this._oValueHelpDialog.setModel(this.valueHelpModel);
-                // // this._oValueHelpDialog.bindAggregation("items", "/");
 
-                // if (this._oValueHelpDialog.bindItems) {
-                //   this._oValueHelpDialog.bindAggregation("items", "/", function () {
-                //     return new StandardListItem({
-                //       cells: aCols.map(function (column) {
-                //         return new Label({
-                //           text: "{" + column.template + "}",
-                //         });
-                //       }),
-                //     });
-                //   });
-                // }
-
-
-                // this._oValueHelpDialog.getTableAsync().then(
-                //   function (oTable) {
-
-                // this.valueHelpTable = oTable;
                 this._oValueHelpDialog.setModel(this.valueHelpModel);
                 this._oValueHelpDialog.setModel(this.columnModel, "columns");
 
@@ -398,14 +349,9 @@ sap.ui.define(
               .getModel("valueModel")
               .read("/ValueHelpSet", parameters);
 
-            // var oToken = new Token();
-            // oToken.setKey(this._oInput.getSelectedKey());
-            // oToken.setText(this._oInput.getValue());
-            // this._oValueHelpDialog.setTokens([oToken]);
 
             var title = "";
 
-            // typeof me.onChange === "function"
             if (typeof this._oInput.getLabels()[0].getText === "function") {
               title = this._oInput.getLabels()[0].getText();
             } else {
@@ -452,19 +398,11 @@ sap.ui.define(
             model.setProperty(path + "/Ename", aSnameValue);
           }
 
-          // if (this._oInput.getBindingInfo("value").parts[0].path === "Mtart") {
-          //   var path = this.getView()
-          //     .getBindingContext("application")
-          //     .getPath();
-          //   var model = this.getView()
-          //     .getBindingContext("application")
-          //     .getModel();
-          //   model.setProperty(path + "/Bklas", "");
-          // }
+
         } else {
           this._oInput.setValue("");
         }
-        // this._oValueHelpDialog.close();
+
       },
 
       onValueHelpCancelPress: function () {
@@ -484,7 +422,7 @@ sap.ui.define(
 
         var serviceEntry = event.getSource().getBindingContext("application").getObject();
 
-        if (actionType !== "Reject" || actionType !== "Release") {
+        if (actionType === "Send") {
           if (!this._applyValidation(serviceEntry)) {
             return;
           }
@@ -493,35 +431,38 @@ sap.ui.define(
         var bindingObject = this.getView().getBindingContext("application").getObject();
 
 
-        if (actionType === "Send") {
+        if (actionType === "Send" || actionType === "SetFinal") {
           serviceEntries.push(serviceEntry);
         }
         else {
-          serviceEntries = bindingObject.serviceEntries.results;
+          serviceEntries = bindingObject.ServiceEntries.results;
         }
-
 
 
         var serviceEntryConverted = {};
         var serviceEntriesConverted = [];
-        
+
         var itemConverted = {};
         var itemsConverted = [];
 
 
         for (var i = 0; i < serviceEntries.length; i++) {
+          entry = {};
           var entry = serviceEntries[i];
-          serviceEntryConverted = entry;
+
+          serviceEntryConverted = Object.assign({}, entry);
           serviceEntryConverted.ServiceEntryItems = entry.ServiceEntryItems.results
-          serviceEntryConverted.Files = entry.Files.results
+          serviceEntryConverted.Files = entry.Files.results;
           serviceEntryConverted.Releasers = [];
           // delete serviceEntryConverted.results;
           serviceEntriesConverted.push(serviceEntryConverted)
         }
 
         for (i = 0; i < bindingObject.Items.results.length; i++) {
-          var item = bindingObject.Items.results[i];
-          itemConverted = item;
+          var item = {};
+
+          item = bindingObject.Items.results[i];
+          itemConverted = Object.assign({}, item);
           itemConverted.ServiceEntryItems = item.ServiceEntryItems.results;
           // delete itemConverted.results;
           itemsConverted.push(itemConverted)
@@ -562,9 +503,13 @@ sap.ui.define(
             var dialogText = "Onaya göndermek istediğinize emin misiniz?";
             commentActive = false;
             break;
-          case "Approve":
+          case "Release":
             dialogText = "Onaylamak istediğinize emin misiniz?";
             commentActive = true;
+            break;
+          case "SetFinal":
+            dialogText = "Son hakediş belgesi olarak belirlemek istediğinize emin misiniz?";
+            commentActive = false;
             break;
           case "Reject":
             dialogText = "Reddetmek istediğinize emin misiniz?";
@@ -611,12 +556,12 @@ sap.ui.define(
                   //   this.FileGuid = uid();
                   //   oUploadSet.upload();
                   // } else {
-                    this.BusyDialog.close();
-                    MessageBox.success("İşlem başarı ile gerçekleştirildi", {
-                      onClose: function (params) {
-                        this.getOwnerComponent().refreshApplication();
-                      }.bind(this),
-                    });
+                  this.BusyDialog.close();
+                  MessageBox.success("İşlem başarı ile gerçekleştirildi", {
+                    onClose: function (params) {
+                      this.getOwnerComponent().refreshApplication();
+                    }.bind(this),
+                  });
                   // }
 
 
@@ -677,8 +622,8 @@ sap.ui.define(
         var entryQuantityEmpty = false;
         var filledLine = false;
 
-        for (var i = 0; i < serviceEntry.ServiceEntryItems.length; i++) {
-          var item = serviceEntry.ServiceEntryItems[i];
+        for (var i = 0; i < serviceEntry.ServiceEntryItems.results.length; i++) {
+          var item = serviceEntry.ServiceEntryItems.results[i];
 
           if (item.EntryAmount === "" || item.EntryAmount === undefined || parseInt(item.EntryAmount) === 0) {
             entryAmountEmpty = true;
@@ -932,6 +877,16 @@ sap.ui.define(
 
           oValueHelpDialog.update();
         });
+      },
+
+      onPressPrint: function (event) {
+
+        var serviceEntry = event.getSource().getBindingContext("application").getObject();
+
+        var serviceUrl = this.getOwnerComponent().getModel("mainModel").sServiceUrl;
+        var url = serviceUrl + "/PrintSet(" + "Lblni='" + serviceEntry.Lblni + "')/$value";
+
+        parent.window.open(url, "_blank");
       },
     });
   }

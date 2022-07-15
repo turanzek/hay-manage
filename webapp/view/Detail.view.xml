@@ -35,7 +35,7 @@
 		</uxap:headerTitle>
 		<uxap:headerContent>
 
-			<HeaderContainer showDividers="true">
+			<HeaderContainer showDividers="false">
 
 				<HBox class="sapUiSmallMarginBottom sapUiSmallMarginEnd">
 
@@ -143,11 +143,11 @@
 			<Button text="Hakediş ekle" press="onPressAddServiceEntry" type="Emphasized" icon="sap-icon://add" visible="{application>UiConfig/AddSheetActive}" />
 		</uxap:headerContent>
 
-		<uxap:ObjectPageSection title="Hakediş bilgileri" titleUppercase="false" showTitle="false" subSections="{ path: 'application>ServiceEntries/results',  templateShareable:false }">
+		<uxap:ObjectPageSection title="Hakediş bilgileri" titleUppercase="false" showTitle="false" subSections="{ path: 'application>ServiceEntries/results',  templateShareable:false }" class="sapUiSmallMarginTop">
 			<uxap:subSections>
 				<uxap:ObjectPageSubSection showTitle="false">
 					<uxap:blocks>
-						<VBox width="100%" class="sapUiSmallMarginTop">
+						<VBox width="100%">
 							<Panel expandable="true" expanded="{application>UiConfig/PanelExpandedActive}" width="auto" class="sapUiSizeCompact ">
 
 								<headerToolbar>
@@ -163,10 +163,16 @@
 
 										<ObjectStatus state="{application>UiConfig/StatusState}" text="{application>UiConfig/StatusText}"></ObjectStatus>
 
+										<ObjectStatus visible="{application>Final}" state="Warning" text="Son hakediş"></ObjectStatus>
+
 										<ToolbarSpacer />
-										<Button type="Reject" text="İptal" press="onPressCancel" visible="{application>UiConfig/CancelButtonActive}"></Button>
-										<Button type="Accept" text="Kaydet" fieldGroupIds="Send" press="onPressAction" visible="{application>UiConfig/SaveButtonActive}"></Button>
-										<Button type="Ghost" text="Son hakediş olarak belirle" fieldGroupIds="Send" press="onPressAction" visible="{application>UiConfig/FinalButtonActive}"></Button>
+
+										<Button type="Ghost" icon="sap-icon://print" text="Yazdır" press="onPressPrint"
+										 visible="{application>UiConfig/PrintButtonActive}"></Button>
+
+										<Button type="Reject" text="İptal" icon="sap-icon://decline" press="onPressCancel" visible="{application>UiConfig/CancelButtonActive}"></Button>
+										<Button type="Accept" text="Kaydet" icon="sap-icon://save" fieldGroupIds="Send" press="onPressAction" visible="{application>UiConfig/SaveButtonActive}"></Button>
+										<Button type="Ghost" icon="sap-icon://sys-last-page"  text="Son hakediş olarak belirle" fieldGroupIds="SetFinal" press="onPressAction" visible="{application>UiConfig/FinalButtonActive}"></Button>
 									</OverflowToolbar>
 								</headerToolbar>
 
@@ -212,17 +218,14 @@
 										<headerToolbar>
 											<OverflowToolbar>
 												<content>
-													<Button text="Hizmetleri ekle" press="onPressAddServiceItem" type="Emphasized" icon="sap-icon://add" visible="{application>UiConfig/AddButtonActive}" />
+													<Button text="Hizmetleri ekle" press="onPressAddServiceItem" type="Ghost" icon="sap-icon://add" visible="{application>UiConfig/AddButtonActive}" />
 													<ToolbarSpacer />
 												</content>
 											</OverflowToolbar>
 										</headerToolbar>
 										<columns>
-											<Column>
-												<Text text="Hizmet" class="sapUiTinyMarginTop" />
-											</Column>
 											<Column width="15rem">
-												<Text text="Hizmet metni" class="sapUiTinyMarginTop" />
+												<Text text="Hizmet" class="sapUiTinyMarginTop" />
 											</Column>
 											<Column>
 												<Text text="Şuana kadar yapılan hakediş" class="sapUiTinyMarginTop" />
@@ -233,23 +236,27 @@
 											<Column>
 												<Text text="Gerçekleşen İş Miktarı" class="sapUiTinyMarginTop" />
 											</Column>
+											<Column width="5rem">
+												<Text text="Sözleşme Birimi" class="sapUiTinyMarginTop" />
+											</Column>
 											<Column>
 												<Text text="Sözleşme Birim Fiyat" class="sapUiTinyMarginTop" />
 											</Column>
-											<Column>
+											<Column width="5rem">
 												<Text text="Sözleşme Para Birimi" class="sapUiTinyMarginTop" />
 											</Column>
 										</columns>
 										<!-- <items> -->
 										<ColumnListItem>
 											<cells>
-												<Input value="{application>Srvpos}" editable="false" />
-												<Input value="{application>Ktext1}" editable="false" />
-												<Input value="{application>AmountPo}" type="Number" editable="false" />
+												<Input value="{application>Srvpos} {application>Ktext1}" editable="false" />
+												<Input value="{application>TotalAmountEntry}" type="Number" editable="false" />
 
 												<Input value="{application>AmountEntry}" type="Number" editable="{application>UiConfig/EditFieldsActive}" required="true" />
 
 												<Input value="{application>QuantityEntry}" type="Number" editable="{application>UiConfig/EditFieldsActive}" required="true" />
+
+												<Input value="{application>Meins}" editable="false" required="true" />
 
 												<Input value="{application>Brtwr}" type="Number" editable="false" />
 
@@ -287,7 +294,7 @@
 			<OverflowToolbar visible="{= ${application>UiConfig/ReleaseButtonActive} === true || ${application>UiConfig/RejectButtonActive} === true ? true : false }">
 				<ToolbarSpacer />
 
-				<Button type="Accept" text="Onayla" fieldGroupIds="Approve" press="onPressAction" visible="{application>UiConfig/ReleaseButtonActive}"></Button>
+				<Button type="Accept" text="Onayla" fieldGroupIds="Release" press="onPressAction" visible="{application>UiConfig/ReleaseButtonActive}"></Button>
 				<Button type="Reject" text="Reddet" fieldGroupIds="Reject" press="onPressAction" visible="{application>UiConfig/RejectButtonActive}"></Button>
 
 			</OverflowToolbar>
