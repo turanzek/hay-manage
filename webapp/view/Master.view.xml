@@ -29,9 +29,14 @@
 				<ObjectListItem title="SAS {application>EbelnPo}" type="Active" number="{ parts : ['application>Items/results/0/Brtwr','application>Items/results/0/Waers' ] }" detailPress="onListItemPress" press="onListItemPress">
 
 					<firstStatus>
-						<ObjectStatus state="{application>UiConfig/StatusState}" text="{application>UiConfig/StatusText}" title="{application>StatusText}"></ObjectStatus>
+						<ObjectStatus state="{=  ${application>AmountPercent}  > 100 ? 'Error'  : 'Success'  }" text="%{application>AmountPercent}" title="Miktarsal"></ObjectStatus>
 					</firstStatus>
 
+					<secondStatus>
+						<ObjectStatus state="{=  ${application>QuantityPercent}  > 100 ? 'Error'  : 'Success'  }" text="%{application>QuantityPercent}" title="Tutarsal"></ObjectStatus>
+					</secondStatus>
+
+					<ObjectAttribute text="{application>UiConfig/StatusText}" />
 					<ObjectAttribute text="Sözleşme {application>EbelnContract}" />
 					<ObjectAttribute text="{application>Items/results/0/MatklDescription}" />
 				</ObjectListItem>

@@ -5,19 +5,20 @@ sap.ui.define([
 
 	return {
 
-		deleteLeadingZeros:function (value) {
+		deleteLeadingZeros: function (value) {
 
-			if (value)
-			{
+			if (value) {
 				var lastValue = value.replace(/^0+/, '');
 			}
-			else
-			{
-				lastValue  = value; 
+			else {
+				lastValue = value;
 			}
-		
+
 			return lastValue;
-		 }
+		},
+		formatValueforChart: function (params) {
+			return parseInt(params)
+		},
 	};
 });
 

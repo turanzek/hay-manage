@@ -117,6 +117,40 @@ sap.ui.define(
 
         servicesEntries.push({
           Sequence: sequenceNo,
+          Waers: bindingObject.Items.results[0].Waers,
+          Brtwr: "0.00",
+          Frggr: "",
+          Process: false,
+          Frgsx: "",
+          Lblni: "",
+          Frgzu: "",
+          Lwert: "0.00",
+          Frgrl: true,
+          MatklDescription: "",
+          NextFrgco: "",
+          Status: "",
+          Authorized: false,
+          Xblnr: "",
+          Guid: "",
+          EbelnPo: bindingObject.Items.results[0].EbelnPo,
+          Ebelp: bindingObject.Items.results[0].Ebelp,
+          Kostl: "",
+          Txz01: "",
+          Knttp: "",
+          Wgbez: "",
+          Menge: "0.000",
+          Meins: bindingObject.Items.results[0].Meins,
+          Matkl: "",
+          Netpr: "0.00",
+          // CreateDate: "",
+          // CreateUzeit: "",
+          CreateUname: "",
+          // Budat: "",
+          Pernr: "",
+          Ename: "",
+          Orgeh: "",
+          OrgehText: "",
+          Description: "",
           Files:
           {
             results: [
@@ -125,17 +159,16 @@ sap.ui.define(
           UiConfig: {
             PanelExpandedActive: true,
             AddButtonActive: true,
-            UploadEditable: true,
+            SaveButtonActive: true,
+            CancelButtonActive: true,
+            FinalButtonActive: false,
+            EditFieldsActive: true,
             StatusState: "Warning",
             StatusText: "İşleniyor"
           },
           ServiceEntryItems: [
             {
-              results: [{
-                UiConfig: {
-                  EditFieldsActive: true
-                }
-              },
+              results: [
               ],
             },
           ]
@@ -177,63 +210,6 @@ sap.ui.define(
         model.setProperty(path, poServiceItems);
         model.refresh(true);
       },
-
-      onPressDeleteLine: function (event) {
-        var table = event.getSource().getParent().getParent();
-        var indices = table.getSelectedIndices();
-        var rows = table.getRows();
-        var selectedIndexes = [];
-        var newLines = [];
-
-        if (rows.length < 2) {
-          return;
-        }
-
-        for (var i = 0; i < indices.length; i++) {
-          var index = indices[i];
-          var context = rows[index].getBindingContext("application");
-          var path = context.getPath();
-          var bindingIndex = path.split("/").slice(-1)[0];
-          var mainPathArray = path.split("/").slice(0, 6);
-          var mainPath = mainPathArray.join("/");
-
-          selectedIndexes.push(parseInt(bindingIndex));
-        }
-
-        var dontAdd = false;
-
-        var line = {};
-
-        var lines = this.getView()
-          .getModel("application")
-          .getProperty(mainPath);
-        for (var k = 0; k < lines.length; k++) {
-          line = {};
-
-          dontAdd = false;
-
-          for (i = 0; i < selectedIndexes.length; i++) {
-            var selectedIndex = selectedIndexes[i];
-            if (k === selectedIndex) {
-              dontAdd = true;
-              // k--;
-            }
-          }
-
-          if (!dontAdd) {
-            line = lines[k];
-            newLines.push(line);
-          }
-        }
-
-        this.getView().getModel("application").setProperty(mainPath, newLines);
-        this.getView().getModel("application").refresh(true);
-        table.clearSelection();
-      },
-
-      /**
-       * @override
-       */
       onAfterRendering: function () {
         // var uiConfig = this.getModel("application").getProperty("UiConfig")
         // var formBasisView = this.byId("formBasisView");
@@ -247,23 +223,6 @@ sap.ui.define(
         // uiConfig.BasisViewEditable
         // uiConfig.MipViewEditable
         // uiConfig.PurchaseViewEditable
-      },
-      handleItemPress: function (oEvent) {
-        var oNextUIState = this.getOwnerComponent()
-          .getHelper()
-          .getNextUIState(2),
-          supplierPath = oEvent
-            .getSource()
-            .getSelectedItem()
-            .getBindingContext("products")
-            .getPath(),
-          supplier = supplierPath.split("/").slice(-1).pop();
-
-        this.oRouter.navTo("detailDetail", {
-          layout: oNextUIState.layout,
-          product: this._itemNo,
-          supplier: supplier,
-        });
       },
       handleFullScreen: function () {
         this.bFocusFullScreenButton = true;
@@ -323,42 +282,6 @@ sap.ui.define(
             break;
         }
 
-        // var oUploadSet = this.getView().byId("UploadSet");
-
-        // oUploadSet.getBinding("items").refresh(true);
-
-        // Fragment.load({
-        // 	name: fragmentName
-        // }).then(function (sections) {
-
-        // this.getView().addDependent(sections);
-        // sections.bindElement(sPathToBind);
-        // this.getView().addDependent(sections);
-        // var sectionsOld = this.byId("ObjectPageLayout").getSections();
-
-        // for (var i = 0; i < sectionsOld.length; i++) {
-        // 	var sectionOld = sectionsOld[i];
-        // 	sectionOld.destroy();
-        // }
-        // var uploadSet = this.getView().byId("UploadSet");
-        // if (uploadSet !== undefined) {
-        // 	uploadSet.destroy();
-        // }
-        // this.byId("ObjectPageLayout").removeAllSections();
-        // this.sections = sap.ui.xmlfragment(fragmentName, this);
-
-        // for (var i = 0; i < this.sections.length; i++) {
-        // 	var section = this.sections[i];
-        // 	this.byId("ObjectPageLayout").addSection(section);
-        // }
-
-        // BusyIndicator.hide();
-
-        // setTimeout(() => {
-        // 	this.byId("UploadSet").setUploadUrl(this.getOwnerComponent().getModel("mainModel").sServiceUrl + "/FilesSet");
-        // }, 1000);
-
-        // }.bind(this));
       },
       onValueHelpRequested: function (event) {
         var aCols = this.columnModel.getData().cols;
@@ -513,9 +436,7 @@ sap.ui.define(
 
             var path = this._oInput.getBindingContext("application").getPath();
             var model = this.getView().getBindingContext("application").getModel();
-            model.setProperty(path + "/Pernr", "");
-
-            var key = this._oInput.setValue(objects.Key);
+            model.setProperty(path + "/Pernr", objects.Key);
             var aData = this.valueHelpModel.getData();
             for (var index = 0; index < aData.length; index++) {
 
@@ -527,8 +448,8 @@ sap.ui.define(
 
             }
 
-            model.setProperty(path + "/Orgeh", aOrgehValue);
-            model.setProperty(path + "/Sname", aSnameValue);
+            model.setProperty(path + "/OrgehText", aOrgehValue);
+            model.setProperty(path + "/Ename", aSnameValue);
           }
 
           // if (this._oInput.getBindingInfo("value").parts[0].path === "Mtart") {
@@ -543,11 +464,11 @@ sap.ui.define(
         } else {
           this._oInput.setValue("");
         }
-        this._oValueHelpDialog.close();
+        // this._oValueHelpDialog.close();
       },
 
       onValueHelpCancelPress: function () {
-        this._oValueHelpDialog.close();
+        // this._oValueHelpDialog.close();
       },
 
       onValueHelpAfterClose: function () {
@@ -556,54 +477,90 @@ sap.ui.define(
       onPressAction: function (event) {
         var commentActive = false;
         var obligatory = false;
+        var serviceEntries = [];
 
         var actionType = event.getSource().getFieldGroupIds()[0];
 
-        if (actionType !== "Reject" && actionType !== "Review") {
-          if (!this._applyValidation()) {
+
+        var serviceEntry = event.getSource().getBindingContext("application").getObject();
+
+        if (actionType !== "Reject" || actionType !== "Release") {
+          if (!this._applyValidation(serviceEntry)) {
             return;
           }
         }
 
-        var bindingObject = this.getView()
-          .getBindingContext("application")
-          .getObject();
+        var bindingObject = this.getView().getBindingContext("application").getObject();
+
+
+        if (actionType === "Send") {
+          serviceEntries.push(serviceEntry);
+        }
+        else {
+          serviceEntries = bindingObject.serviceEntries.results;
+        }
+
+
+
+        var serviceEntryConverted = {};
+        var serviceEntriesConverted = [];
+        
+        var itemConverted = {};
+        var itemsConverted = [];
+
+
+        for (var i = 0; i < serviceEntries.length; i++) {
+          var entry = serviceEntries[i];
+          serviceEntryConverted = entry;
+          serviceEntryConverted.ServiceEntryItems = entry.ServiceEntryItems.results
+          serviceEntryConverted.Files = entry.Files.results
+          serviceEntryConverted.Releasers = [];
+          // delete serviceEntryConverted.results;
+          serviceEntriesConverted.push(serviceEntryConverted)
+        }
+
+        for (i = 0; i < bindingObject.Items.results.length; i++) {
+          var item = bindingObject.Items.results[i];
+          itemConverted = item;
+          itemConverted.ServiceEntryItems = item.ServiceEntryItems.results;
+          // delete itemConverted.results;
+          itemsConverted.push(itemConverted)
+        }
+
+
 
         var process = {
-          Guid: bindingObject.Guid,
-          ActionType: actionType,
-          MaterialKind: bindingObject.MaterialKind,
-          Matkl: bindingObject.Matkl,
-          Matnr: bindingObject.Matnr,
-          Mtart: bindingObject.Mtart,
-          Maktx: bindingObject.Maktx,
-          ProcessType: bindingObject.ProcessType,
-          RequestNo: bindingObject.RequestNo,
           Status: bindingObject.Status,
-          StatusState: bindingObject.StatusState,
-          StatusText: bindingObject.StatusText,
-          ActiveStep: bindingObject.ActiveStep,
-          Meins: bindingObject.Meins,
-          Extwg: bindingObject.Extwg,
-          VendorChoice: bindingObject.VendorChoice,
-          StorageText: bindingObject.StorageText,
-          MaterialNote: bindingObject.MaterialNote,
-          CreateDate: bindingObject.CreateDate,
-          CreateTime: bindingObject.CreateTime,
-          CreateUname: bindingObject.CreateUname,
-          Storages: bindingObject.Storages.results,
-          SupplierCodes: bindingObject.SupplierCodes.results,
-          Equipments: bindingObject.Equipments.results,
-          Valuations: bindingObject.Valuations.results,
-          Plants: bindingObject.Plants.results,
-          ApproveSteps: bindingObject.ApproveSteps.results,
+          Ekorg: bindingObject.Ekorg,
+          PersonInfo: bindingObject.PersonInfo,
+          CreateContractUser: bindingObject.CreateContractUser,
           UiConfig: bindingObject.UiConfig,
+          CreatePoTime: bindingObject.CreatePoTime,
+          Guid: bindingObject.Guid,
+          CreatePoUname: bindingObject.CreatePoUname,
+          EbelnPo: bindingObject.EbelnPo,
+          Ebelp: bindingObject.Ebelp,
+          Description: bindingObject.Description,
+          EbelnContract: bindingObject.EbelnContract,
+          Lifnr: bindingObject.Lifnr,
+          Name1: bindingObject.Name1,
+          Ekgrp: bindingObject.Ekgrp,
+          Kdatb: bindingObject.Kdatb,
+          Kdate: bindingObject.Kdate,
+          CreateContractDate: bindingObject.CreateContractDate,
+          CreatePoDate: bindingObject.CreatePoDate,
+          BsartPo: bindingObject.BsartPo,
+          BsartContract: bindingObject.BsartContract,
+          LastUser: bindingObject.LastUser,
+          Items: itemsConverted,
+          ServiceEntries: serviceEntriesConverted,
+          ActionType: actionType,
         };
 
         switch (actionType) {
           case "Send":
             var dialogText = "Onaya göndermek istediğinize emin misiniz?";
-            commentActive = true;
+            commentActive = false;
             break;
           case "Approve":
             dialogText = "Onaylamak istediğinize emin misiniz?";
@@ -611,11 +568,6 @@ sap.ui.define(
             break;
           case "Reject":
             dialogText = "Reddetmek istediğinize emin misiniz?";
-            commentActive = true;
-            obligatory = true;
-            break;
-          case "Review":
-            dialogText = "Gözden geçirlmesini istediğinize emin misiniz?";
             commentActive = true;
             obligatory = true;
             break;
@@ -649,32 +601,25 @@ sap.ui.define(
                     .getModel();
                   model.setProperty(path, processReturn);
 
-                  // processReturn.StatusState  =
-                  // processReturn.StatusText   =
-                  // processReturn.Status	   =
-                  // processReturn.CreateDate   =
-                  // processReturn.CreateTime   =
-                  // processReturn.CreateUname  =
-                  // processReturn.RequestNo
-                  // processReturn.ActiveStep
 
-                  // this.startUpload(processReturn);
-                  this.completeItemCount = 0;
-                  var oUploadSet = sap.ui.getCore().byId("UploadSet");
+                  // this.completeItemCount = 0;
+                  // var oUploadSet = sap.ui.getCore().byId("UploadSet");
 
-                  var cFiles = oUploadSet.getIncompleteItems().length;
+                  // var cFiles = oUploadSet.getIncompleteItems().length;
 
-                  if (cFiles > 0) {
-                    this.FileGuid = uid();
-                    oUploadSet.upload();
-                  } else {
+                  // if (cFiles > 0) {
+                  //   this.FileGuid = uid();
+                  //   oUploadSet.upload();
+                  // } else {
                     this.BusyDialog.close();
                     MessageBox.success("İşlem başarı ile gerçekleştirildi", {
                       onClose: function (params) {
                         this.getOwnerComponent().refreshApplication();
                       }.bind(this),
                     });
-                  }
+                  // }
+
+
                 }.bind(this),
                 error: function (error) {
                   MessageBox.error(
@@ -689,34 +634,78 @@ sap.ui.define(
         );
       },
 
-      _applyValidation: function () {
+      _applyValidation: function (serviceEntry) {
         var emptyFieldExist = false;
-        var inputs = sap.ui
-          .getCore()
-          .byFieldGroupId("")
-          .filter((c) => c.isA("sap.m.Input"));
 
-        for (var i = 0; i < inputs.length; i++) {
-          var item = inputs[i];
-          if (item.getRequired() && item.getVisible() && item.getEditable()) {
-            if (
-              item.getValue() === "" ||
-              item.getValue() === undefined ||
-              parseFloat(item.getValue()) === 0
-            ) {
-              emptyFieldExist = true;
-              item.setValueState("Error");
-              item.setValueStateText("Zorunlu Alan");
-              item.focus();
-            } else {
-              item.setValueState("None");
-              item.setValueStateText("");
-            }
+        // var inputs = sap.ui.getCore().byFieldGroupId("").filter((c) => c.isA("sap.m.Input"));
+
+        // for (var i = 0; i < inputs.length; i++) {
+        //   var item = inputs[i];
+        //   if (item.getRequired() && item.getVisible() && item.getEditable()) {
+        //     if (
+        //       item.getValue() === "" ||
+        //       item.getValue() === undefined ||
+        //       parseFloat(item.getValue()) === 0
+        //     ) {
+        //       emptyFieldExist = true;
+        //       item.setValueState("Error");
+        //       item.setValueStateText("Zorunlu Alan");
+        //       item.focus();
+        //     } else {
+        //       item.setValueState("None");
+        //       item.setValueStateText("");
+        //     }
+        //   }
+        // }
+
+        if (serviceEntry.Xblnr === "" || serviceEntry.Xblnr === undefined) {
+          MessageBox.error("Fatura no alanını doldurunuz.");
+          return false;
+        }
+
+        if (serviceEntry.Lwert === "" || serviceEntry.Lwert === undefined) {
+          MessageBox.error("Fatura tutarını doldurunuz.");
+          return false;
+        }
+
+        if (serviceEntry.Pernr === "" || serviceEntry.Pernr === undefined) {
+          MessageBox.error("Personel alanını doldurunuz.");
+          return false;
+        }
+
+        var entryAmountEmpty = false;
+        var entryQuantityEmpty = false;
+        var filledLine = false;
+
+        for (var i = 0; i < serviceEntry.ServiceEntryItems.length; i++) {
+          var item = serviceEntry.ServiceEntryItems[i];
+
+          if (item.EntryAmount === "" || item.EntryAmount === undefined || parseInt(item.EntryAmount) === 0) {
+            entryAmountEmpty = true;
+          }
+
+          if (item.EntryQuantity === "" || item.EntryQuantity === undefined || parseInt(item.EntryQuantity) === 0) {
+            entryQuantityEmpty = true;
+          }
+
+          if (entryQuantityEmpty && !entryAmountEmpty) {
+            MessageBox.error("Kalemdeki miktar alanı doldurulmalı");
+            return false;
+          }
+
+
+          if (!entryQuantityEmpty && entryAmountEmpty) {
+            MessageBox.error("Kalemdeki tutar alanını doldurulmalı");
+            return false;
+          }
+
+          if (!(entryQuantityEmpty && !entryQuantityEmpty)) {
+            filledLine = true;
           }
         }
 
-        if (emptyFieldExist) {
-          MessageBox.error("Lütfen zorunlu alanları doldurunuz");
+        if (!filledLine) {
+          MessageBox.error("En az bir kalem doldurulmalı");
           return false;
         }
 
