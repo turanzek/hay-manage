@@ -365,7 +365,15 @@ sap.ui.define(
 
 
       },
-
+      
+      	handleSearch: function (oEvent) {
+          var sValue = oEvent.getParameter("value");
+          var oFilter = new Filter("Key", FilterOperator.Contains, sValue);
+          var oBinding = oEvent.getSource().getBinding("items");
+          oBinding.filter([oFilter]);
+        },
+    
+      
       onValueHelpOkPress: function (oEvent) {
         // var aTokens = oEvent.getParameter("tokens");
         var objects = oEvent.getParameters().selectedContexts[0].getObject()

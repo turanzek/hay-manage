@@ -1,6 +1,6 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:fb="sap.ui.comp.filterbar">
 
-	<TableSelectDialog class="sapUiPopupWithPadding" search="onSearchValueHelp" confirm="onValueHelpOkPress" cancel="onValueHelpCancelPress"  noDataText="Veri yok" title="Değer seçiniz">
+	<TableSelectDialog class="sapUiPopupWithPadding" search="handleSearch" confirm="onValueHelpOkPress" cancel="onValueHelpCancelPress"  noDataText="Veri yok" title="Değer seçiniz">
 		<!-- <StandardListItem title="{ERNAM>Value}" info="{ERNAM>Key}" /> -->
 	</TableSelectDialog>
 
