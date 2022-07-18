@@ -275,9 +275,7 @@ sap.ui.define(
               new Filter("Name", FilterOperator.EQ, valueHelpname),
             ];
 
-            var bindingObject = this.getView()
-              .getBindingContext("application")
-              .getObject();
+            var bindingObject = this.getView().getBindingContext("application").getObject();
             // if (valueHelpname === "Mtart") {
             //   if (
             //     bindingObject.MaterialKind !== undefined &&

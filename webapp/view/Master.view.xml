@@ -16,7 +16,7 @@
 		</f:title>
 		<!-- text="{application>/listCount}"/> -->
 		<f:content>
-			<List class="sapUiNoMargin" items="{
+			<List id= "mainList" class="sapUiNoMargin" items="{
 				path: 'application>/DataModel/results'
 			}">
 				<headerToolbar>

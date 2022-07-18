@@ -71,8 +71,7 @@ sap.ui.define(
           var aFilters = [],
             oFilter1,
             oFilter2,
-            oFilter3,
-            oFilter4;
+            oFilter3;
 
           oFilter1 = new Filter({
             path: "EbelnPo",
@@ -90,6 +89,14 @@ sap.ui.define(
 
           aFilters.push(oFilter2);
 
+          oFilter3 = new Filter({
+            path: "Items/results/0/MatklDescription",
+            operator: FilterOperator.Contains,
+            value1: sQuery,
+          });
+
+          aFilters.push(oFilter3);
+
 
 
           this._oListFilterState.aSearch = new Filter(aFilters, false);
@@ -100,7 +107,7 @@ sap.ui.define(
         // var aFilters = this._oListFilterState.aSearch.concat(this._oListFilterState.aFilter),
         //var oViewModel = this.getModel("masterView");
 
-        (this._oList = this.byId("masterTable")),
+        (this._oList = this.byId("mainList")),
           this._oList.getBinding("items").filter(this._oListFilterState.aSearch, "Application");
 
         // if (this._oListFilterState.aSearch === {}) {
