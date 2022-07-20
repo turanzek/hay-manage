@@ -196,6 +196,8 @@
 											<Input value="{application>Lwert}" editable="{application>UiConfig/EditFieldsActive}" required="true" type="Number" />
 											<!-- <Text class="sapUiTinyMarginBegin" text="{application>Waers}" /> -->
 											<!-- </HBox> -->
+											<Label text="Para Birimi" class="sapUiTinyMarginEnd" />
+											<Input value=" {application>Waers}" editable="false" />
 
 											<core:Title text="Personel Bilgileri" />
 
@@ -207,6 +209,8 @@
 
 											<Label text="Organizasyon Tanımı" class="sapUiTinyMarginEnd" />
 											<Input value=" {application>OrgehText}" editable="false" />
+
+
 
 										</form:content>
 									</form:SimpleForm>
@@ -254,7 +258,7 @@
 
 												<Input value="{application>AmountEntry}" type="Number" editable="{application>UiConfig/EditFieldsActive}" required="true" />
 
-												<Input value="{application>QuantityEntry}" type="Number" editable="{application>UiConfig/EditFieldsActive}" required="true" />
+												<Input value="{application>QuantityEntry}" type="Number" maxLength="17" editable="{application>UiConfig/EditFieldsActive}" required="true" />
 
 												<Input value="{application>Meins}" editable="false" required="true" />
 
@@ -270,7 +274,7 @@
 
 
 								<Panel headerText="Açıklama">
-									<TextArea value="{application>Description}" rows="2" width="100%" editable="{application>UiConfig/EditFieldsActive}" />
+									<TextArea value="{application>Description}" maxLength="255" rows="2" width="100%" editable="{application>UiConfig/EditFieldsActive}" />
 
 								</Panel>
 
