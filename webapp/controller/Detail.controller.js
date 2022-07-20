@@ -147,7 +147,7 @@ sap.ui.define(
             EditFieldsActive: true,
             StatusState: "Warning",
             StatusText: "İşleniyor",
-            PrintButtonActive:false
+            PrintButtonActive: false
           },
           ServiceEntryItems: [
             {
@@ -365,15 +365,17 @@ sap.ui.define(
 
 
       },
-      
-      	handleSearch: function (oEvent) {
-          var sValue = oEvent.getParameter("value");
-          var oFilter = new Filter("Key", FilterOperator.Contains, sValue);
-          var oBinding = oEvent.getSource().getBinding("items");
-          oBinding.filter([oFilter]);
-        },
-    
-      
+
+      handleSearch: function (oEvent) {
+        var sValue = oEvent.getParameter("value");
+        var oFilter1 = new Filter("Key", FilterOperator.Contains, sValue);
+        var oFilter2 = new Filter("Value1", FilterOperator.Contains, sValue);
+        var oFilter3 = new Filter("Value2", FilterOperator.Contains, sValue);
+        var oBinding = oEvent.getSource().getBinding("items");
+        oBinding.filter(new Filter({ filters: [oFilter1, oFilter2, oFilter3], and: false }));
+      },
+
+
       onValueHelpOkPress: function (oEvent) {
         // var aTokens = oEvent.getParameter("tokens");
         var objects = oEvent.getParameters().selectedContexts[0].getObject()
