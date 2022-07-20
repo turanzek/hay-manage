@@ -543,6 +543,7 @@ sap.ui.define(
             this.getOwnerComponent()
               .getModel("mainModel")
               .create("/ProcessModelSet", process, {
+
                 success: function (processReturn) {
                   var path = this.getView()
                     .getBindingContext("application")
@@ -553,22 +554,21 @@ sap.ui.define(
                   model.setProperty(path, processReturn);
 
 
-                  // this.completeItemCount = 0;
-                  // var oUploadSet = sap.ui.getCore().byId("UploadSet");
+                  this.completeItemCount = 0;
+                  var oUploadSet = sap.ui.getCore().byId("UploadSet");
 
-                  // var cFiles = oUploadSet.getIncompleteItems().length;
+                  var cFiles = oUploadSet.getIncompleteItems().length;
 
-                  // if (cFiles > 0) {
-                  //   this.FileGuid = uid();
-                  //   oUploadSet.upload();
-                  // } else {
+                  if (cFiles > 0) {
+                    oUploadSet.upload();
+                  } else {
                   this.BusyDialog.close();
                   MessageBox.success("İşlem başarı ile gerçekleştirildi", {
                     onClose: function (params) {
                       this.getOwnerComponent().refreshApplication();
                     }.bind(this),
                   });
-                  // }
+                   }
 
 
                 }.bind(this),
@@ -742,11 +742,7 @@ sap.ui.define(
           text: encodeURIComponent(
             oItemToUpload.getFileName() +
             ";" +
-            bindingObject.RequestNo +
-            ";" +
-            bindingObject.Matnr +
-            ";" +
-            this.FileGuid
+            bindingObject.Lblni
           ),
         });
 
