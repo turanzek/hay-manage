@@ -427,6 +427,8 @@ sap.ui.define(
 
         var actionType = event.getSource().getFieldGroupIds()[0];
 
+       var uploadSet = event.getSource().getParent().getParent().getControlsByFieldGroupId("uploadSet")[0]
+
 
         var serviceEntry = event.getSource().getBindingContext("application").getObject();
 
@@ -557,12 +559,11 @@ sap.ui.define(
 
 
                   this.completeItemCount = 0;
-                  var oUploadSet = sap.ui.getCore().byId("UploadSet");
 
-                  var cFiles = oUploadSet.getIncompleteItems().length;
+                  var cFiles = uploadSet.getIncompleteItems().length;
 
                   if (cFiles > 0) {
-                    oUploadSet.upload();
+                    uploadSet.upload();
                   } else {
                   this.BusyDialog.close();
                   MessageBox.success("İşlem başarı ile gerçekleştirildi", {

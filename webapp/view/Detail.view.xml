@@ -279,7 +279,7 @@
 								</Panel>
 
 								<Panel headerText="Ekler">
-									<upload:UploadSet id="UploadSet" instantUpload="false" noDataText="Dosya yüklenmedi" noDataDescription="Sürükleyip bırakarak ya da dosya yükle butonnunu kullanarak dosya yükleyebilirsiniz." terminationEnabled="false" maxFileNameLength="55" beforeUploadStarts="onBeforeUploadStarts" uploadCompleted="onUploadCompleted" class="sapUiResponsiveMargin" items="{ path:'application>Files/results' ,  templateShareable:false }" uploadUrl="/sap/opu/odata/sap/ZMM_MAY_MANAGE_SRV/FilesSet" uploadEnabled="{application>UiConfig/EditFieldsActive}">
+									<upload:UploadSet fieldGroupIds="uploadSet" id="UploadSet" instantUpload="false" noDataText="Dosya yüklenmedi" noDataDescription="Sürükleyip bırakarak ya da dosya yükle butonnunu kullanarak dosya yükleyebilirsiniz." terminationEnabled="false" maxFileNameLength="55" beforeUploadStarts="onBeforeUploadStarts" uploadCompleted="onUploadCompleted" class="sapUiResponsiveMargin" items="{ path:'application>Files/results' ,  templateShareable:false }" uploadUrl="/sap/opu/odata/sap/ZMM_HAY_MANAGE_SRV/FilesSet" uploadEnabled="{application>UiConfig/EditFieldsActive}">
 										<upload:items>
 											<upload:UploadSetItem fileName="{application>FileName}" mediaType="{application>MimeType}" url="{application>FileUrl}" enabledEdit="{application>Editable}" enabledRemove="{application>Editable}"></upload:UploadSetItem>
 										</upload:items>
