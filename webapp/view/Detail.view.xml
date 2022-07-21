@@ -241,13 +241,13 @@
 												<Text text="Gerçekleşen İş Miktarı" class="sapUiTinyMarginTop" />
 											</Column>
 											<Column width="5rem">
-												<Text text="Sözleşme Birimi" class="sapUiTinyMarginTop" />
+												<Text text="SAS Birimi" class="sapUiTinyMarginTop" />
 											</Column>
 											<Column>
-												<Text text="Sözleşme Birim Fiyat" class="sapUiTinyMarginTop" />
+												<Text text="SAS Birim Fiyat" class="sapUiTinyMarginTop" />
 											</Column>
 											<Column width="5rem">
-												<Text text="Sözleşme Para Birimi" class="sapUiTinyMarginTop" />
+												<Text text="SAS Para Birimi" class="sapUiTinyMarginTop" />
 											</Column>
 										</columns>
 										<!-- <items> -->
