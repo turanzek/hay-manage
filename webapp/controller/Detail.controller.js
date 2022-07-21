@@ -734,9 +734,7 @@ sap.ui.define(
             .getSecurityToken(),
         });
 
-        var bindingObject = this.getView()
-          .getBindingContext("application")
-          .getObject();
+        var bindingObject = oUploadSet.getBindingContext("application").getObject();// bakılacak
 
         // Header Slug
         var oCustomerHeaderSlug = new sap.ui.core.Item({
