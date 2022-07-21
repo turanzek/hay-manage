@@ -608,6 +608,10 @@ sap.ui.define(
         //     }
         //   }
         // }
+        if (serviceEntry.Files === "" || serviceEntry.Files === undefined) {
+          MessageBox.error("Fatura no alanını doldurunuz.");
+          return false;
+        }
 
         if (serviceEntry.Xblnr === "" || serviceEntry.Xblnr === undefined) {
           MessageBox.error("Fatura no alanını doldurunuz.");
