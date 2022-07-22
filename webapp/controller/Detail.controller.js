@@ -427,7 +427,7 @@ sap.ui.define(
 
         var actionType = event.getSource().getFieldGroupIds()[0];
 
-       var uploadSet = event.getSource().getParent().getParent().getControlsByFieldGroupId("uploadSet")[0]
+        var uploadSet = event.getSource().getParent().getParent().getControlsByFieldGroupId("uploadSet")[0]
 
 
         var serviceEntry = event.getSource().getBindingContext("application").getObject();
@@ -555,8 +555,7 @@ sap.ui.define(
                   var model = this.getView()
                     .getBindingContext("application")
                     .getModel();
-                  model.setProperty(path, processReturn);
-
+                  model.setProperty(path + "/Lblni", processReturn.ServiceEntries.results[0].Lblni);
 
                   this.completeItemCount = 0;
 
@@ -565,13 +564,13 @@ sap.ui.define(
                   if (cFiles > 0) {
                     uploadSet.upload();
                   } else {
-                  this.BusyDialog.close();
-                  MessageBox.success("İşlem başarı ile gerçekleştirildi", {
-                    onClose: function (params) {
-                      this.getOwnerComponent().refreshApplication();
-                    }.bind(this),
-                  });
-                   }
+                    this.BusyDialog.close();
+                    MessageBox.success("İşlem başarı ile gerçekleştirildi", {
+                      onClose: function (params) {
+                        this.getOwnerComponent().refreshApplication();
+                      }.bind(this),
+                    });
+                  }
 
 
                 }.bind(this),
@@ -638,11 +637,15 @@ sap.ui.define(
         for (var i = 0; i < serviceEntry.ServiceEntryItems.results.length; i++) {
           var item = serviceEntry.ServiceEntryItems.results[i];
 
-          if (item.EntryAmount === "" || item.EntryAmount === undefined || parseInt(item.EntryAmount) === 0) {
-            entryAmountEmpty = true;
+          entryAmountEmpty = false;
+          entryQuantityEmpty = false;
+
+          if (item.AmountEntry === "" || item.AmountEntry === undefined || parseFloat(item.AmountEntry) === 0) {
+             entryAmountEmpty = true;
           }
 
-          if (item.EntryQuantity === "" || item.EntryQuantity === undefined || parseInt(item.EntryQuantity) === 0) {
+          if (item.QuantityEntry === "" || item.QuantityEntry === undefined || parseFloat(item.QuantityEntry) === 0) {
+
             entryQuantityEmpty = true;
           }
 
@@ -657,9 +660,10 @@ sap.ui.define(
             return false;
           }
 
-          if (!(entryQuantityEmpty && !entryQuantityEmpty)) {
+          if (!entryQuantityEmpty && !entryAmountEmpty) {
             filledLine = true;
           }
+
         }
 
         if (!filledLine) {
