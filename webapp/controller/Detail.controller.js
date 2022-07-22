@@ -103,7 +103,7 @@ sap.ui.define(
           Frggr: "",
           Process: false,
           Frgsx: "",
-          Lblni: "",
+          Lblni: bindingObject.Items.results[0].Lblni,
           Frgzu: "",
           Lwert: "0.00",
           Frgrl: true,
@@ -112,7 +112,7 @@ sap.ui.define(
           Status: "",
           Authorized: false,
           Xblnr: "",
-          Guid: "",
+          Guid: bindingObject.Guid,
           EbelnPo: bindingObject.Items.results[0].EbelnPo,
           Ebelp: bindingObject.Items.results[0].Ebelp,
           Kostl: "",
@@ -612,7 +612,7 @@ sap.ui.define(
         //   }
         // }
         if (serviceEntry.Files === "" || serviceEntry.Files === undefined) {
-          MessageBox.error("Fatura no alanını doldurunuz.");
+          MessageBox.error("Dosya ekleyiniz.");
           return false;
         }
 
@@ -744,11 +744,8 @@ sap.ui.define(
         // Header Slug
         var oCustomerHeaderSlug = new sap.ui.core.Item({
           key: "slug",
-          text: encodeURIComponent(
-            oItemToUpload.getFileName() +
-            ";" +
-            bindingObject.Lblni
-          ),
+          text: encodeURIComponent(oItemToUpload.getFileName() + ";" + bindingObject.EbelnPo + ";" + bindingObject.Guid + ";" + bindingObject.Lblni + ";" + bindingObject.Intid),
+
         });
 
         oUploadSet.removeAllHeaderFields();
