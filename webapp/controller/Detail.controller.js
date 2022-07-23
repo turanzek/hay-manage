@@ -220,6 +220,30 @@ sap.ui.define(
         );
         this.oRouter.navTo("master", { layout: sNextLayout });
       },
+      onChangeAmount: function (event) {
+
+        var object = event.getSource().getBindingContext("application").getObject();
+        var path = event.getSource().getBindingContext("application").getPath();
+        var model = event.getSource().getBindingContext("application").getModel();
+
+
+        if (parseFloat(object.QuantityPo) === 1) {
+          var quantityEntry = parseFloat(event.getParameters().newValue) / (object.AmountPo);
+          model.setProperty(path + "/QuantityEntry", quantityEntry.toFixed(3));
+        }
+
+      },
+      onChangeQuantity: function (event) {
+        var object = event.getSource().getBindingContext("application").getObject();
+        var path = event.getSource().getBindingContext("application").getPath();
+        var model = event.getSource().getBindingContext("application").getModel();
+
+
+        if (parseFloat(object.QuantityPo) != 1) {
+          var amountEntry = (parseFloat(event.getParameters().newValue) / (object.QuantityPo)) * object.AmountPo;
+          model.setProperty(path + "/AmountEntry", amountEntry.toFixed(2));
+        }
+      },
       _onMasterMatched: function (oEvent) {
         this._itemNo =
           oEvent.getParameter("arguments").itemNo || this._itemNo || "0";
@@ -251,6 +275,7 @@ sap.ui.define(
             fragmentName = "gubretas.mm.hay.fragments.Sections";
             break;
         }
+   
 
       },
       onValueHelpRequested: function (event) {
@@ -433,7 +458,7 @@ sap.ui.define(
         var serviceEntry = event.getSource().getBindingContext("application").getObject();
 
         if (actionType === "Send") {
-          if (!this._applyValidation(serviceEntry)) {
+          if (!this._applyValidation(serviceEntry, uploadSet)) {
             return;
           }
         }
@@ -556,6 +581,7 @@ sap.ui.define(
                     .getBindingContext("application")
                     .getModel();
                   model.setProperty(path + "/Lblni", processReturn.ServiceEntries.results[0].Lblni);
+                  this.Lblni = processReturn.ServiceEntries.results[0].Lblni;
 
                   this.completeItemCount = 0;
 
@@ -587,7 +613,7 @@ sap.ui.define(
         );
       },
 
-      _applyValidation: function (serviceEntry) {
+      _applyValidation: function (serviceEntry, uploadSet) {
         var emptyFieldExist = false;
 
         // var inputs = sap.ui.getCore().byFieldGroupId("").filter((c) => c.isA("sap.m.Input"));
@@ -610,7 +636,7 @@ sap.ui.define(
         //     }
         //   }
         // }
-        if (serviceEntry.Files === "" || serviceEntry.Files === undefined) {
+        if (!(uploadSet._getAllItems().length > 0)) {
           MessageBox.error("Dosya ekleyiniz.");
           return false;
         }
@@ -641,7 +667,7 @@ sap.ui.define(
           entryQuantityEmpty = false;
 
           if (item.AmountEntry === "" || item.AmountEntry === undefined || parseFloat(item.AmountEntry) === 0) {
-             entryAmountEmpty = true;
+            entryAmountEmpty = true;
           }
 
           if (item.QuantityEntry === "" || item.QuantityEntry === undefined || parseFloat(item.QuantityEntry) === 0) {
@@ -743,12 +769,12 @@ sap.ui.define(
             .getSecurityToken(),
         });
 
-        var bindingObject = oUploadSet.getBindingContext("application").getObject();// bakılacak
+        var bindingObject = oUploadSet.getBindingContext("application").getObject();
 
         // Header Slug
         var oCustomerHeaderSlug = new sap.ui.core.Item({
           key: "slug",
-          text: encodeURIComponent(oItemToUpload.getFileName() + ";" + bindingObject.EbelnPo + ";" + bindingObject.Guid + ";" + bindingObject.Lblni + ";" + bindingObject.Intid),
+          text: encodeURIComponent(oItemToUpload.getFileName() + ";" + bindingObject.EbelnPo + ";" + bindingObject.Guid + ";" + this.Lblni),
 
         });
 

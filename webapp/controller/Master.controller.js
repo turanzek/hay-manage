@@ -33,6 +33,19 @@ sap.ui.define(
       onListItemPress: function (oEvent) {
         // BusyIndicator.show();
 
+        var uploadSets = this.getView().getControlsByFieldGroupId("uploadSet");
+
+        for (var i = 0; i < uploadSets.length; i++) {
+          var uploadSet = uploadSets[i];
+          if (typeof (uploadSet.destroyItems) === "function") {
+            uploadSet.destroyItems();
+          }
+
+          if (typeof (uploadSet.destroyUploader) === "function") {
+            uploadSet.destroyUploader();
+          }
+        }
+
         this.showBusyIndicator(50, 0);
         var oNextUIState = this.getOwnerComponent()
           .getHelper()
